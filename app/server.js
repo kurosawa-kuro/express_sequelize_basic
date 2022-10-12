@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { sequelize, User, Post } = require('./models')
+const { sequelize, User, Post } = require("../db/models/index")
 
 const app = express()
 app.use(express.json())
