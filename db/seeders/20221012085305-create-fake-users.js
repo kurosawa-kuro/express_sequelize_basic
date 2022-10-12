@@ -29,7 +29,7 @@ module.exports = {
           id: 2,
           name: 'Jane Doe',
           email: 'jane@email.com',
-          uuid: faker.datatype.uuid(),
+          uuid: 'a36264ca-3590-cec0-8e6a-98e08b57ef4f',
           role: 'normal',
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',

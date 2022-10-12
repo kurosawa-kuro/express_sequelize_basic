@@ -1,0 +1,34 @@
+###
+#get_users
+GET http://localhost:5000/users
+
+###
+#get_single_user
+GET http://localhost:5000/users/35cf1b89-56d3-433c-9f43-4198eb3725de
+
+###
+#post_user
+POST http://localhost:5000/users
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "sample@mail.com",
+    "role": "normal"
+}
+
+###
+#update_user
+PUT http://localhost:5000/users/a36264ca-3590-cec0-8e6a-98e08b57ef4f
+content-type: application/json
+
+{
+    "name": "updated_name",
+    "email": "updated_sample@mail.com",
+    "role": "normal"
+}
+
+###
+#delete_user
+DELETE  http://localhost:5000/users/a36264ca-3590-cec0-8e6a-98e08b57ef4f
+content-type: application/json
