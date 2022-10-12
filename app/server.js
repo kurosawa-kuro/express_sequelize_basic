@@ -21,6 +21,8 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
     try {
         const users = await User.findAll()
+        // const [results, metadata] = await sequelize.query("SELECT * FROM users");
+        // console.log({ metadata })
 
         return res.json(users)
     } catch (err) {

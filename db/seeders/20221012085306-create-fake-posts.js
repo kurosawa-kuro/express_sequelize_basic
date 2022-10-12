@@ -17,7 +17,7 @@ module.exports = {
       'posts',
       [
         {
-          uuid: faker.datatype.uuid(),
+          uuid: '2adce3d1-7c5c-4ca7-be17-14dd211faa75',
           body: faker.lorem.text(),
           userId: 1,
           createdAt: '2020-11-01T16:30:07.592Z',
