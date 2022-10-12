@@ -37,7 +37,7 @@ app.get('/users/:uuid', async (req, res) => {
             include: 'posts',
         })
 
-        console.log(JSON.stringify(user))
+        console.log(JSON.stringify(user, null, 2))
         return res.json(user)
     } catch (err) {
         console.log(err)
