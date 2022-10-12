@@ -1,5 +1,7 @@
 'use strict'
 
+const { faker } = require('@faker-js/faker');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -15,17 +17,27 @@ module.exports = {
       'users',
       [
         {
+          id: 1,
           name: 'John Doe',
           email: 'john@email.com',
           uuid: '35cf1b89-56d3-433c-9f43-4198eb3725de',
-          role: 'admin',
+          role: 'normal',
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',
         },
         {
+          id: 2,
           name: 'Jane Doe',
           email: 'jane@email.com',
-          uuid: '37cf1b89-56d3-433c-9f43-4198eb8135de',
+          uuid: faker.datatype.uuid(),
+          role: 'normal',
+          createdAt: '2020-11-01T16:30:07.592Z',
+          updatedAt: '2020-11-01T16:30:07.592Z',
+        },
+        {
+          name: faker.name.fullName(),
+          email: 'ken@email.com',
+          uuid: faker.datatype.uuid(),
           role: 'admin',
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',
@@ -37,16 +49,37 @@ module.exports = {
       'posts',
       [
         {
-          uuid: '11111111111111111111111111111',
-          body: 'post1',
-          userId: '1',
+          uuid: faker.datatype.uuid(),
+          body: faker.lorem.text(),
+          userId: 1,
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',
         },
         {
-          uuid: '22222222222222222222',
-          body: 'post2',
-          userId: '1',
+          uuid: faker.datatype.uuid(),
+          body: faker.lorem.text(),
+          userId: 1,
+          createdAt: '2020-11-01T16:30:07.592Z',
+          updatedAt: '2020-11-01T16:30:07.592Z',
+        },
+        {
+          uuid: faker.datatype.uuid(),
+          body: faker.lorem.text(),
+          userId: 1,
+          createdAt: '2020-11-01T16:30:07.592Z',
+          updatedAt: '2020-11-01T16:30:07.592Z',
+        },
+        {
+          uuid: faker.datatype.uuid(),
+          body: faker.lorem.text(),
+          userId: 2,
+          createdAt: '2020-11-01T16:30:07.592Z',
+          updatedAt: '2020-11-01T16:30:07.592Z',
+        },
+        {
+          uuid: faker.datatype.uuid(),
+          body: faker.lorem.text(),
+          userId: 3,
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',
         },

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ini_db": "cd app/database && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/kurosawa-kuro/sequelize-cli_express2#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "sequelize-cli": "^6.5.1"
   },
   "dependencies": {
