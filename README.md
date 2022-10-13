@@ -1,18 +1,13 @@
-# sequelize-cli_express2
+# express_sequelize_basic
 
 ```
 npm i
 
-cd database
+npm run ini_db
 
-sequelize db:create
-sequelize db:migrate
+npm run test_database
 
-sequelize db:seed:all
-
-cd ../
-
-node server.js
+npm run start
 ```
 
 ```
