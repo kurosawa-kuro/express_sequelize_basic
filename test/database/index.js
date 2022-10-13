@@ -4,9 +4,9 @@ const { start_posts } = require("../database/post")
 
 async function start() {
     console.log("start index")
-    // start_user()
+    start_user()
     // start_book()
-    start_posts()
+    // start_posts()
 }
 
 start()

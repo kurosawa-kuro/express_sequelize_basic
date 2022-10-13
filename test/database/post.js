@@ -4,7 +4,7 @@ const { consoleLogJson } = require("./library")
 async function start_posts() {
     console.log("start_posts")
     // create_users()
-    read_posts()
+    // read_posts()
     // read_users2()
     // read_user()
     // update_user()
