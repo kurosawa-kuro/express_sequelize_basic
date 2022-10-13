@@ -13,8 +13,8 @@ const signin_user = {
 async function start_auth() {
     console.log("start auth")
 
-    signup()
-    // signin()
+    // signup()
+    signin()
     // delete_signin_user()
 
     // profile()
@@ -40,7 +40,8 @@ async function signup() {
 
     // Check if user exists
     const userExists = await User.findOne({ where: { email: inputData.email } });
-    consoleLogJson(userExists)
+    // consoleLogJson(userExists)
+
     if (userExists) {
         throw new Error('User already exists')
     }
@@ -56,13 +57,10 @@ async function signup() {
             email: user.dataValues.email,
             token: await User.generateToken(user.id),
         }
-
-        console.log("resData", JSON.stringify(resData, null, 2))
+        consoleLogJson(resData)
     } catch (error) {
         console.log(error)
     }
-
-
 }
 
 
@@ -72,29 +70,22 @@ async function signin() {
         email: signin_user.email,
         password: signin_user.password
     }
-
     // consoleLogJson(inputData)
-    console.log({ inputData })
 
     // Check for user email
     const userWithEmail = await User.findOne({ where: { email: inputData.email } })
-    console.log({ userWithEmail })
+    // consoleLogJson(userWithEmail)
 
     if (userWithEmail && (await bcrypt.compare(inputData.password, userWithEmail.password))) {
-
         const resData = {
             name: userWithEmail.name,
             email: userWithEmail.email,
             token: await User.generateToken(userWithEmail.id),
         }
-
-        console.log("resData", JSON.stringify(resData, null, 2))
+        consoleLogJson(resData)
     } else {
         throw new Error('Invalid credentials')
     }
-
-    // return
-    // console.log("users", JSON.stringify(users, null, 2))
 }
 
 async function profile() {
