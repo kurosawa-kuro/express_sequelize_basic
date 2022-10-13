@@ -31,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
                     isEmail: { msg: 'Must be a valid email address' },
                 },
             },
+            avator: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             role: {
                 type: DataTypes.STRING,
                 allowNull: false,

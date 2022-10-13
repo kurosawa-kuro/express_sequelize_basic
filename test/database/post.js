@@ -1,5 +1,5 @@
 const { sequelize, Post } = require("../../db/models/index")
-const { consoleLogJson } = require("./library")
+const { consoleLogJson } = require("../../library/index")
 
 async function start_posts() {
     console.log("start_posts")
@@ -64,6 +64,12 @@ async function destroy_user() {
         }
     });
     console.log("delete user")
+}
+
+async function read_posts() {
+    const posts = await Post.findAll({ include: 'user' })
+
+    consoleLogJson(posts)
 }
 
 module.exports = {

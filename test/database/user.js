@@ -1,14 +1,16 @@
+const { Op } = require("sequelize");
 const { sequelize, User, Post } = require("../../db/models/index")
-const { consoleLogJson } = require("../database/library")
+const { consoleLogJson } = require("../../library/index")
 
 async function start_user() {
     console.log("start user")
     // create_users()
     // read_users()
-    read_users2()
+    // read_users2()
     // read_user()
     // update_user()
     // destroy_user()
+    search_users()
 }
 
 async function read_users() {
@@ -17,6 +19,7 @@ async function read_users() {
     // console.log("users", JSON.stringify(users, null, 2))
     consoleLogJson(users)
 }
+
 async function read_users2() {
     const [results, metadata] = await sequelize.query("SELECT * FROM users");
     console.log("users metadata", JSON.stringify(metadata, null, 2))
@@ -63,6 +66,20 @@ async function destroy_user() {
         }
     });
     console.log("delete user")
+}
+
+async function search_users() {
+    const name = "Doe"
+    const users = await User.findAll({
+        where: {
+            name: {
+                [Op.like]: '%' + name + '%'
+            },
+
+        }
+    })
+
+    consoleLogJson(users)
 }
 
 module.exports = {

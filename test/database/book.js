@@ -1,5 +1,5 @@
 const { sequelize, Book } = require("../../db/models/index")
-const { consoleLogJson } = require("../database/library")
+const { consoleLogJson } = require("../../library/index")
 
 async function start_book() {
     console.log("start_book")

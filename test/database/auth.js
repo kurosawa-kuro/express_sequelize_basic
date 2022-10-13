@@ -1,5 +1,6 @@
 const { sequelize, User, Post } = require("../../db/models/index")
 
+const { consoleLogJson } = require("../../library/index")
 
 async function start_auth() {
     console.log("start auth")
