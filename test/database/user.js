@@ -69,13 +69,21 @@ async function destroy_user() {
 }
 
 async function search_users() {
-    const name = "Doe"
+    const keyword = "Doe"
     const users = await User.findAll({
         where: {
-            name: {
-                [Op.like]: '%' + name + '%'
-            },
-
+            [Op.or]: [
+                {
+                    name: {
+                        [Op.like]: '%' + keyword + '%'
+                    }
+                },
+                {
+                    email: {
+                        [Op.like]: '%' + keyword + '%'
+                    }
+                }
+            ]
         }
     })
 
