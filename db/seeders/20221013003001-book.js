@@ -1,68 +1,59 @@
-'use strict'
+'use strict';
 
 const { faker } = require('@faker-js/faker');
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-     */
+  async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      'posts',
+      'books',
       [
         {
-          uuid: '2adce3d1-7c5c-4ca7-be17-14dd211faa75',
+          title: faker.word.adjective(5),
           body: faker.lorem.text(),
-          userId: 1,
+          cover: faker.image.abstract(),
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
+          title: faker.word.adjective(5),
           body: faker.lorem.text(),
-          userId: 1,
+          cover: faker.image.abstract(),
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
+          title: faker.word.adjective(5),
           body: faker.lorem.text(),
-          userId: 1,
+          cover: faker.image.abstract(),
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
+          title: faker.word.adjective(5),
           body: faker.lorem.text(),
-          userId: 2,
-          createdAt: '2020-11-01T16:30:07.592Z',
-          updatedAt: '2020-11-01T16:30:07.592Z',
+          cover: faker.lorem.text(),
+          createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
+          updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
+          title: faker.word.adjective(5),
           body: faker.lorem.text(),
-          userId: 3,
-          createdAt: '2020-11-01T16:30:07.592Z',
-          updatedAt: '2020-11-01T16:30:07.592Z',
+          cover: faker.lorem.text(),
+          createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
+          updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
       ],
       {}
     )
   },
 
-  down: async (queryInterface, Sequelize) => {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('users', null, {})
-  },
-}
+  }
+};

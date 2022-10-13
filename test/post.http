@@ -2,22 +2,21 @@
 # https://qiita.com/toshi0607/items/c4440d3fbfa72eac840c#rest-client%E3%81%A8%E3%81%AF
 
 ###
-#get_users
-GET http://localhost:5000/users
+#get_posts
+GET http://localhost:5000/posts
 
 ###
 #get_single_user
 GET http://localhost:5000/users/35cf1b89-56d3-433c-9f43-4198eb3725de
 
 ###
-#post_user
-POST http://localhost:5000/users
+#post_post
+POST http://localhost:5000/posts
 content-type: application/json
 
 {
-    "name": "sample",
-    "email": "sample@mail.com",
-    "role": "normal"
+    "userUuid": "ba59b62c-002a-48a4-9bd0-9d89583632aa",
+    "body": "sample@mail.com",
 }
 
 ###

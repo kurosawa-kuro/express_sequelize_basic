@@ -83,8 +83,10 @@ app.put('/users/:uuid', async (req, res) => {
 })
 
 app.post('/posts', async (req, res) => {
+    console.log("hits post's posts")
     const { userUuid, body } = req.body
-
+    console.log({ userUuid })
+    console.log({ body })
     try {
         const user = await User.findOne({ where: { uuid: userUuid } })
 
