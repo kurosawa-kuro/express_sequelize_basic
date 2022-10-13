@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { sequelize, User, Post } = require("../../db/models/index")
+const { sequelize, User } = require("../../db/models/index")
 const { consoleLogJson } = require("../../library/index")
 
 async function start_user() {

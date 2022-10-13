@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const { sequelize, User, Post } = require("../../db/models/index")
+const { User } = require("../../db/models/index")
 const { faker } = require('@faker-js/faker');
 
 const { consoleLogJson } = require("../../library/index")
