@@ -5,12 +5,12 @@ const { consoleLogJson } = require("../../library/index")
 async function start_user() {
     console.log("start user")
     // create_users()
-    // read_users()
+    read_users()
     // read_users2()
     // read_user()
     // update_user()
     // destroy_user()
-    search_users()
+    // search_users()
 }
 
 async function read_users() {
