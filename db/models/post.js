@@ -12,17 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             // userId
             this.belongsTo(User, { foreignKey: 'userId', as: 'user' })
         }
-
-        toJSON() {
-            return { ...this.get(), id: undefined, userId: undefined }
-        }
     }
     Post.init(
         {
-            uuid: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
-            },
             body: {
                 type: DataTypes.STRING,
                 allowNull: false,

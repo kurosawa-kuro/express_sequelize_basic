@@ -11,17 +11,9 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             this.hasMany(Post, { foreignKey: 'userId', as: 'posts' })
         }
-
-        toJSON() {
-            return { ...this.get(), id: undefined }
-        }
     }
     User.init(
         {
-            uuid: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
-            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,

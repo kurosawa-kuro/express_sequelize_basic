@@ -17,35 +17,30 @@ module.exports = {
       'posts',
       [
         {
-          uuid: '2adce3d1-7c5c-4ca7-be17-14dd211faa75',
           body: faker.lorem.text(),
           userId: 1,
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
           body: faker.lorem.text(),
           userId: 1,
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
           body: faker.lorem.text(),
           userId: 1,
           createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
           updatedAt: faker.date.between('2020-01-01T00:00:00.000Z', '2022-01-01T00:00:00.000Z'),
         },
         {
-          uuid: faker.datatype.uuid(),
           body: faker.lorem.text(),
           userId: 2,
           createdAt: '2020-11-01T16:30:07.592Z',
           updatedAt: '2020-11-01T16:30:07.592Z',
         },
         {
-          uuid: faker.datatype.uuid(),
           body: faker.lorem.text(),
           userId: 3,
           createdAt: '2020-11-01T16:30:07.592Z',
