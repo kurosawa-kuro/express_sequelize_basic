@@ -1,4 +1,4 @@
-# sequelize-cli_express2
+# express_sequelize_basic
 
 ```
 npm i
