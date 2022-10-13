@@ -4,7 +4,6 @@ function consoleLogJson(object) {
     } else {
         console.log(object[0].constructor, JSON.stringify(object, null, 2))
     }
-
 }
 
 module.exports = {
