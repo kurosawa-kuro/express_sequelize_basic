@@ -13,8 +13,8 @@ const signin_user = {
 async function start_auth() {
     console.log("start auth")
 
-    // signup()
-    signin()
+    signup()
+    // signin()
     // delete_signin_user()
 
     // profile()

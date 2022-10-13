@@ -5,10 +5,10 @@ const { start_auth } = require("../database/auth")
 
 async function start() {
     console.log("start index")
-    // start_user()
+    start_user()
     // start_book()
     // start_posts()
-    start_auth()
+    // start_auth()
 }
 
 start()

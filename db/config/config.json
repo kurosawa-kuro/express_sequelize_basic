@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "sequelize-cli_express2_database_development",
+    "database": "database_development_express_sequelize_basic",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
