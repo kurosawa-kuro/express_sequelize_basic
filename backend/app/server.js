@@ -1,5 +1,4 @@
 const printRoutes = require("express-list-endpoints");
-const dotenv = require('dotenv').config();
 
 const app = require('.')
 const { sequelize } = require("../db/models/index")

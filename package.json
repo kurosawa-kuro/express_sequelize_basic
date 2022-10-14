@@ -15,7 +15,7 @@
     "test_watch": "jest --watchAll",
     "test_single": "jest todos.test.js",
     "test_database": "node test/database/index.js",
-    "ini_db": "cd db && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
+    "ini_db": "cd backend/db && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
