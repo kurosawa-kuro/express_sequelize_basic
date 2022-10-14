@@ -1,9 +1,8 @@
 const express = require('express')
-const createError = require('http-errors');
 const asyncHandler = require('express-async-handler')
 
-const { errorHandler } = require('../middleware/errorMiddleware');
-const { sequelize, User, Post } = require("../db/models/index")
+const { errorHandler } = require('./middleware/errorMiddleware');
+const { User, Post } = require("../db/models/index")
 
 const app = express()
 
@@ -66,9 +65,7 @@ app.put('/users/:id', asyncHandler(async (req, res) => {
 }))
 
 app.post('/posts', asyncHandler(async (req, res) => {
-    console.log("hits post's posts")
     const body = req.body
-    console.log({ body })
 
     const user = await User.findOne({ where: { id: body.userId } })
 
@@ -83,43 +80,8 @@ app.get('/posts', asyncHandler(async (req, res) => {
     return res.json(posts)
 }))
 
-const todos = [{ id: 1, name: 'aaaaaaa', completed: false }]
-/* GET users listing. */
-app.get('/todos', function (req, res, next) {
-    console.log("hit get /todos")
-    res.json(todos);
-})
 
-app.get('/todos/:id', function (req, res, next) {
-    const id = req.params.id
-    const foundTodo = todos.find((todo) => todo.id === Number(id))
-    console.log({ foundTodo })
-    if (!foundTodo) {
-        res.statusCode = 404
-        throw new Error('todo not found');
-    }
-    res.json(foundTodo);
-})
-
-app.post('/todos', function (req, res, next) {
-    console.log('hit post todos')
-    const { body } = req
-    console.log({ body })
-
-    if (typeof body.name !== 'string') {
-        res.statusCode = 422
-        throw new Error('name must string');
-    }
-
-    const newTodo = {
-        id: todos.length + 1,
-        name: body.name,
-        completed: false
-    }
-
-    todos.push(newTodo)
-    res.status(201).json(newTodo);
-});
+app.use('/todos', require('./routes/todoRoutes'));
 
 app.use(errorHandler);
 

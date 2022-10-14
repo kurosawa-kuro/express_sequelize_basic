@@ -15,17 +15,16 @@ GET http://localhost:5000/todos/111
 
 ###
 #post_post
-POST http://localhost:5000/posts
+POST http://localhost:5000/todos
 content-type: application/json
 
-{
-    "userUuid": "ba59b62c-002a-48a4-9bd0-9d89583632aa",
-    "body": "sample@mail.com",
-}
+ { 
+    "name": "abx"
+ }
 
 ###
 #update_user
-PUT http://localhost:5000/users/a36264ca-3590-cec0-8e6a-98e08b57ef4f
+PUT http://localhost:5000/todos/1
 content-type: application/json
 
 {
