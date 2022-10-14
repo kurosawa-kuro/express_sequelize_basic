@@ -7,7 +7,7 @@ GET http://localhost:5000/posts
 
 ###
 #get_single_user
-GET http://localhost:5000/users/35cf1b89-56d3-433c-9f43-4198eb3725de
+GET http://localhost:5000/users/2
 
 ###
 #post_post
@@ -15,8 +15,8 @@ POST http://localhost:5000/posts
 content-type: application/json
 
 {
-    "userUuid": "ba59b62c-002a-48a4-9bd0-9d89583632aa",
-    "body": "sample@mail.com",
+    "userId": 2,
+    "body": "sample@mail.com"
 }
 
 ###
