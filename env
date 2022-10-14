@@ -4,7 +4,7 @@ PORT_BACKEND=8800
 
 DATABASE_USER='root'
 DATABASE_PASSWORD=''
-DATABASE_DATABASE='mini_full_stack_react_redux_express_mysql'
+DATABASE_DATABASE='react_express_sequelize_basic>'
 DATABASE_HOST='localhost'
 DATABASE_DIALECT='mysql'
 

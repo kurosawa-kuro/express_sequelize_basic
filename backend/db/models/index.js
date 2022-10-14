@@ -11,19 +11,18 @@ const db = {};
 
 require('dotenv').config();
 
-config.use_env_variable = true
-console.log({ config })
-console.log("process.env.DATABASE_USER", process.env.DATABASE_DATABASE)
-
+// config.use_env_variable = true
 
 let sequelize;
 if (config.use_env_variable) {
-  console.log("config.use_env_variable")
   sequelize = new Sequelize(
     process.env.DATABASE_DATABASE,
     process.env.DATABASE_USER,
     process.env.DATABASE_PASSWORD,
-    config
+    {
+      host: process.env.DATABASE_HOST,
+      dialect: process.env.DATABASE_DIALECT,
+    }
   );
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
