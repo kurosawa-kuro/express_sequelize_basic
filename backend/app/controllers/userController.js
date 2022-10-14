@@ -27,7 +27,6 @@ const createUser = asyncHandler(async (req, res) => {
     }
 
     const userExists = await User.findOne({ where: { email: body.email } });
-    console.log({ userExists })
 
     if (userExists) {
         res.status(400)
