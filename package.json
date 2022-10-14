@@ -10,7 +10,7 @@
     ]
   },
   "scripts": {
-    "start": "nodemon app/server.js",
+    "start": "nodemon backend/app/server.js",
     "test": "jest",
     "test_watch": "jest --watchAll",
     "test_single": "jest todos.test.js",
