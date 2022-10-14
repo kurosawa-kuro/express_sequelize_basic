@@ -85,6 +85,7 @@ app.get('/posts', asyncHandler(async (req, res) => {
 
 
 app.use('/todos', require('./routes/todoRoutes'));
+app.use('/users', require('./routes/userRoutes'));
 
 app.use(errorHandler);
 
