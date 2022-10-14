@@ -23,7 +23,7 @@ content-type: application/json
 
 ###
 #update_user
-PUT http://localhost:5000/users/a36264ca-3590-cec0-8e6a-98e08b57ef4f
+PUT http://localhost:5000/users/1
 content-type: application/json
 
 {
@@ -34,5 +34,5 @@ content-type: application/json
 
 ###
 #delete_user
-DELETE  http://localhost:5000/users/a36264ca-3590-cec0-8e6a-98e08b57ef4f
+DELETE  http://localhost:5000/users/1
 content-type: application/json

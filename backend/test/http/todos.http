@@ -7,7 +7,11 @@ GET http://localhost:5000/todos
 
 ###
 #get_single_user
-GET http://localhost:5000/users/35cf1b89-56d3-433c-9f43-4198eb3725de
+GET http://localhost:5000/todos/1
+
+###
+#get_single_user
+GET http://localhost:5000/todos/111
 
 ###
 #post_post

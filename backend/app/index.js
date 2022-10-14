@@ -1,26 +1,23 @@
 const express = require('express')
 const createError = require('http-errors');
+const asyncHandler = require('express-async-handler')
 
+const { errorHandler } = require('../middleware/errorMiddleware');
 const { sequelize, User, Post } = require("../db/models/index")
 
 const app = express()
 
 app.use(express.json())
 
-app.post('/users', async (req, res) => {
-    const { name, email, role } = req.body
+app.post('/users', asyncHandler(async (req, res) => {
+    const body = req.body
 
-    try {
-        const user = await User.create({ name, email, role })
+    const user = await User.create(body)
 
-        return res.json(user)
-    } catch (err) {
-        console.log(err)
-        return res.status(500).json(err)
-    }
-})
+    return res.json(user)
+}))
 
-app.get('/users', async (req, res) => {
+app.get('/users', asyncHandler(async (req, res) => {
     try {
         const users = await User.findAll()
         // const [results, metadata] = await sequelize.query("SELECT * FROM users");
@@ -31,9 +28,9 @@ app.get('/users', async (req, res) => {
         console.log(err)
         return res.status(500).json({ error: 'Something went wrong' })
     }
-})
+}))
 
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:id', asyncHandler(async (req, res) => {
     const id = req.params.id
     try {
         const user = await User.findOne({
@@ -49,12 +46,12 @@ app.get('/users/:id', async (req, res) => {
         console.log(err)
         return res.status(500).json({ error: 'Something went wrong' })
     }
-})
+}))
 
-app.delete('/users/:uuid', async (req, res) => {
-    const uuid = req.params.uuid
+app.delete('/users/:id', asyncHandler(async (req, res) => {
+    const id = req.params.id
     try {
-        const user = await User.findOne({ where: { uuid } })
+        const user = await User.findOne({ where: { id } })
 
         await user.destroy()
 
@@ -63,13 +60,13 @@ app.delete('/users/:uuid', async (req, res) => {
         console.log(err)
         return res.status(500).json({ error: 'Something went wrong' })
     }
-})
+}))
 
-app.put('/users/:uuid', async (req, res) => {
-    const uuid = req.params.uuid
+app.put('/users/:id', asyncHandler(async (req, res) => {
+    const id = req.params.id
     const { name, email, role } = req.body
     try {
-        const user = await User.findOne({ where: { uuid } })
+        const user = await User.findOne({ where: { id } })
 
         user.name = name
         user.email = email
@@ -82,15 +79,15 @@ app.put('/users/:uuid', async (req, res) => {
         console.log(err)
         return res.status(500).json({ error: 'Something went wrong' })
     }
-})
+}))
 
-app.post('/posts', async (req, res) => {
+app.post('/posts', asyncHandler(async (req, res) => {
     console.log("hits post's posts")
-    const { userUuid, body } = req.body
-    console.log({ userUuid })
+    const { body } = req.body
+
     console.log({ body })
     try {
-        const user = await User.findOne({ where: { uuid: userUuid } })
+        const user = await User.findOne({ where: { id } })
 
         const post = await Post.create({ body, userId: user.id })
 
@@ -99,9 +96,9 @@ app.post('/posts', async (req, res) => {
         console.log(err)
         return res.status(500).json(err)
     }
-})
+}))
 
-app.get('/posts', async (req, res) => {
+app.get('/posts', asyncHandler(async (req, res) => {
     try {
         const posts = await Post.findAll({ include: 'user' })
 
@@ -110,24 +107,25 @@ app.get('/posts', async (req, res) => {
         console.log(err)
         return res.status(500).json(err)
     }
-})
+}))
 
 const todos = [{ id: 1, name: 'aaaaaaa', completed: false }]
 /* GET users listing. */
-app.get('/todos', function (req, res, next) {
+app.get('/todos', asyncHandler(function (req, res, next) {
     console.log("hit get /todos")
     res.json(todos);
-});
+}))
 
-app.get('/todos/:id', function (req, res, next) {
-    const foundTodo = todos.find((todo) => todo.id === Number(req.params.id))
+app.get('/todos/:id', asyncHandler(function (req, res, next) {
+    const id = req.params.id
+    const foundTodo = todos.find((todo) => todo.id === Number(id))
     console.log({ foundTodo })
     if (!foundTodo) {
-        // 404
-        return next(createError(404, 'Not Found'))
+        res.statusCode = 404
+        throw new Error('todo not found');
     }
     res.json(foundTodo);
-});
+}))
 
 app.post('/todos', function (req, res, next) {
     console.log('hit post todos')
@@ -135,7 +133,8 @@ app.post('/todos', function (req, res, next) {
     console.log({ body })
 
     if (typeof body.name !== 'string') {
-        return next(createError(422, 'Name Validation Error'))
+        res.statusCode = 422
+        throw new Error('name must string');
     }
 
     const newTodo = {
@@ -148,6 +147,7 @@ app.post('/todos', function (req, res, next) {
     res.status(201).json(newTodo);
 });
 
+app.use(errorHandler);
 
 module.exports = app;
 
