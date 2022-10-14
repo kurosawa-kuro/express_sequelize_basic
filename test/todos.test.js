@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../app/app')
+const app = require('../app')
 
 describe('Todos', () => {
     it('GET /todos --> array todos', () => {

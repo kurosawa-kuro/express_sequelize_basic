@@ -1,4 +1,4 @@
-const app = require('./app')
+const app = require('.')
 const { sequelize, User, Post } = require("../db/models/index")
 
 app.listen({ port: 5000 }, async () => {

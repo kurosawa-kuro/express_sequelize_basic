@@ -13,7 +13,7 @@
     "start": "nodemon app/server.js",
     "test": "jest",
     "test_watch": "jest --watchAll",
-    "test_single": "jest sample.test.js",
+    "test_single": "jest todos.test.js",
     "test_database": "node test/database/index.js",
     "ini_db": "cd db && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
