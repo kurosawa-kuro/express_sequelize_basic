@@ -2,7 +2,7 @@
 # https://qiita.com/toshi0607/items/c4440d3fbfa72eac840c#rest-client%E3%81%A8%E3%81%AF
 
 ###
-#post_user
+#createUser
 POST http://localhost:5000/users
 content-type: application/json
 
@@ -15,20 +15,20 @@ content-type: application/json
 
 
 ###
-#get_users
+#readUsers
 GET http://localhost:5000/users
 
 ###
-#get_single_user
+#readUser
 GET http://localhost:5000/users/1
 
 ###
-#seach_user
+#seachUsers
 GET http://localhost:5000/users/search?keyword=Doe
 
 
 ###
-#update_user
+#updateUser
 PUT http://localhost:5000/users/2
 content-type: application/json
 
@@ -39,6 +39,6 @@ content-type: application/json
 }
 
 ###
-#delete_user
+#deleteUser
 DELETE  http://localhost:5000/users/2
 content-type: application/json
