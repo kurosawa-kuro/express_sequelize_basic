@@ -32,7 +32,6 @@ const create_user = async () => {
 
         const msg = "Successfully created User"
         const data = user
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -48,7 +47,6 @@ const read_users = async () => {
 
         const data = users
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -79,7 +77,6 @@ const read_users2 = async () => {
 
         const data = arrangedResData
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -87,14 +84,13 @@ const read_users2 = async () => {
 }
 
 const read_users3 = async () => {
-    console.log("start read_users2")
+    console.log("start read_users3")
 
     try {
         const [results, metadata] = await sequelize.query("SELECT * FROM users");
         // console.log("users metadata", JSON.stringify(metadata, null, 2))
         const msg = "Successfully read User"
         const data = metadata
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -112,7 +108,6 @@ const read_user = async () => {
 
         const msg = user ? "Successfully searched Users" : "Successfully searched Users but empty"
         const data = user
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -132,7 +127,6 @@ const update_user = async () => {
     let foundUserWithId
     try {
         foundUserWithId = await User.findByPk(id);
-
         // console.log({ foundUserWithId })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -152,7 +146,6 @@ const update_user = async () => {
 
         const msg = "Successfully updated User"
         const data = foundUserWithId
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -167,7 +160,6 @@ const destroy_user = async () => {
     let foundUserWithId
     try {
         foundUserWithId = await User.findByPk(id);
-
         // console.log({ foundUserWithId })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -183,7 +175,6 @@ const destroy_user = async () => {
         });
         const msg = "Successfully deleted User"
         const data = foundUserWithId
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -214,7 +205,6 @@ const search_users = async () => {
 
         const data = users
         const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -231,7 +221,6 @@ const truncate_users = async () => {
 
         const data = []
         const msg = "Successfully truncate Users but empty"
-
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
