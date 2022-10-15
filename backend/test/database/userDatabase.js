@@ -234,7 +234,7 @@ const truncateUsers = async () => {
         });
 
         const data = []
-        const msg = "Successfully truncate Users but"
+        const msg = "Successfully truncate Users"
 
         // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
