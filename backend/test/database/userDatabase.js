@@ -4,8 +4,8 @@ const { sequelize, User } = require("../../db/models/index")
 async function startUser() {
     console.log("start_user")
 
-    createUser()
-    // readUsers()
+    // createUser()
+    readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
