@@ -27,7 +27,7 @@ content-type: application/json
 
 ###
 #update_user
-PUT http://localhost:5000/users/1
+PUT http://localhost:5000/users/2
 content-type: application/json
 
 {
