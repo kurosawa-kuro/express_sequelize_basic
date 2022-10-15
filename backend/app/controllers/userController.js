@@ -5,16 +5,14 @@ const { validationResult } = require('express-validator');
 const { User } = require("../../db/models/")
 
 // @desc    Create User
-// @route   POST /api/goals
+// @route   POST /users
 // @access  Public
 const createUser = asyncHandler(async (req, res) => {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
 
-    console.log('hit post users')
     const body = req.body
 
     if (!body.name || !body.email || !body.password) {
@@ -34,8 +32,8 @@ const createUser = asyncHandler(async (req, res) => {
     return res.status(201).json(user)
 })
 
-// @desc    Get goals
-// @route   GET /api/goals
+// @desc    Read Users
+// @route   GET /users
 // @access  Public
 const readUsers = asyncHandler(async (req, res) => {
     const users = await User.findAll()
@@ -46,7 +44,7 @@ const readUsers = asyncHandler(async (req, res) => {
 })
 
 // @desc    Read user
-// @route   GET /api/goals/:id
+// @route   GET /users/:id
 // @access  Public
 const readUser = asyncHandler(async (req, res) => {
     const id = req.params.id
@@ -77,8 +75,8 @@ const updateUser = asyncHandler(async (req, res) => {
     // res.status(200).json(foundUser);
 })
 
-// @desc    Update user
-// @route   DELETE /api/users/:id
+// @desc    Delete user
+// @route   DELETE users/:id
 // @access  Public
 const deleteUser = asyncHandler(async (req, res) => {
     // const id = req.params.id
@@ -94,7 +92,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 // @desc    Search user
-// @route   GET /api/users/search/:keyword
+// @route   GET users/search?keyword
 // @access  Public
 const searchUser = asyncHandler(async (req, res) => {
     const { keyword } = req.query
