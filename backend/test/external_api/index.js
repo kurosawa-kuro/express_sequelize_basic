@@ -4,11 +4,8 @@ const { start_open_meteo } = require("./open-meteo")
 // const { start_auth } = require("../database/auth")
 
 async function start() {
-    console.log("start index")
+    console.log("start external_api index")
     start_open_meteo()
-    // start_book()
-    // start_posts()
-    // start_auth()
 }
 
 start()
