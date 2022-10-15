@@ -37,7 +37,7 @@ module.exports = {
         },
         {
           name: faker.name.fullName(),
-          email: 'ken@email.com',
+          email: 'Doe@email.com',
           password: faker.internet.password(60),
           avator: faker.image.avatar(),
           role: 'admin',
