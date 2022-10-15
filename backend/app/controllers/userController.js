@@ -65,41 +65,42 @@ const readUser = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/:id
 // @access  Public
 const updateUser = asyncHandler(async (req, res) => {
-    const id = req.params.id
+    // const id = req.params.id
 
-    const foundUser = await User.findOne({ where: { id } })
+    // const foundUser = await User.findOne({ where: { id } })
 
-    if (!foundUser) {
-        res.statusCode = 404
-        throw new Error('user not found');
-    }
+    // if (!foundUser) {
+    //     res.statusCode = 404
+    //     throw new Error('user not found');
+    // }
 
-    res.status(200).json(foundUser);
+    // res.status(200).json(foundUser);
 })
 
 // @desc    Update user
 // @route   DELETE /api/users/:id
 // @access  Public
 const deleteUser = asyncHandler(async (req, res) => {
-    const id = req.params.id
+    // const id = req.params.id
 
-    const foundUser = await User.findOne({ where: { id } })
+    // const foundUser = await User.findOne({ where: { id } })
 
-    if (!foundUser) {
-        res.statusCode = 404
-        throw new Error('user not found');
-    }
+    // if (!foundUser) {
+    //     res.statusCode = 404
+    //     throw new Error('user not found');
+    // }
 
-    res.status(200).json(foundUser);
+    // res.status(200).json(foundUser);
 })
 
 // @desc    Search user
-// @route   GET /api/users/search?keyword
+// @route   GET /api/users/search/:keyword
 // @access  Public
 const searchUser = asyncHandler(async (req, res) => {
     console.log("hit Search user")
 
-    const keyword = req.params.keyword
+    console.log("req.query", req.query)
+    const { keyword } = req.query
 
     const users = await User.findAll({
         where: {

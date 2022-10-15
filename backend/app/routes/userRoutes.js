@@ -4,7 +4,7 @@ const router = express.Router()
 const userCreateValidator = require('../middleware/validator/userCreateValidator');
 const userController = require('../controllers/userController.js')
 
-router.get('/search/:keyword', userController.searchUser)
+router.get('/search', userController.searchUser)
 router.post('/', userCreateValidator, userController.createUser)
 router.get('/', userController.readUsers)
 router.get('/:id', userController.readUser)
