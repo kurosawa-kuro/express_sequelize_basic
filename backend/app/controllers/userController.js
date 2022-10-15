@@ -15,32 +15,41 @@ const createUser = asyncHandler(async (req, res) => {
 
     const body = req.body
 
-    if (!body.name || !body.email || !body.password) {
-        res.status(400)
-        throw new Error('Please add all fields')
+    const inputData = {
+        name: body.name,
+        email: body.email,
+        password: body.password,
+        role: body.role,
     }
 
-    const userExists = await User.findOne({ where: { email: body.email } });
+    const foundUserWithEmail = await User.findOne({ where: { email: inputData.email } });
+    // console.log({ foundUserWithId })
 
-    if (userExists) {
-        res.status(400)
-        throw new Error('User already exists')
+    if (foundUserWithEmail) {
+        res.statusCode = 404
+        throw new Error('user already exists');
     }
 
-    const user = await User.create(body)
+    const user = await User.create(inputData)
+    // console.log("user", JSON.stringify(user, null, 2))
 
-    return res.status(201).json(user)
+    const msg = "Successfully created User"
+    const data = user
+
+    return res.status(201).json({ isSuccess: true, msg, data })
 })
 
 // @desc    Read Users
 // @route   GET /users
 // @access  Public
 const readUsers = asyncHandler(async (req, res) => {
-    const users = await User.findAll()
-    // const [results, metadata] = await sequelize.query("SELECT * FROM users");
-    // console.log({ metadata })
+    const users = await User.findAll({ include: 'posts' })
+    // console.log("users", JSON.stringify(users, null, 2))
 
-    return res.status(200).json(users)
+    const data = users
+    const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+
+    return res.status(200).json({ isSuccess: true, msg, data })
 })
 
 // @desc    Read user

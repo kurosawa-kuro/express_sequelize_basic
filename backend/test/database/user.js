@@ -1,44 +1,52 @@
 const { Op } = require("sequelize");
 const { sequelize, User } = require("../../db/models/index")
 
-async function start_user() {
+async function startUser() {
     console.log("start_user")
 
-    // create_user()
-    // read_users()
-    read_users2()
-    // read_users3()
-    // read_user()
-    // search_users()
-    // update_user()
-    // destroy_user()
-    // truncate_users()
-
+    createUser()
+    // readUsers()
+    // readUsers2()
+    // readUsers3()
+    // readUser()
+    // searchUsers()
+    // updateUser()
+    // deleteUser()
+    // truncateUsers()
 }
 
-const create_user = async () => {
-    console.log("start create_user")
-
-    const inputData = {
-        name: "abc",
-        email: "abc@abc.com",
-        password: "unhashed_password",
-        role: "normal",
-    }
-
+const createUser = async () => {
     try {
+        console.log("start createUser")
+
+        const inputData = {
+            name: "abc",
+            email: "abc@abc.com",
+            password: "unhashed_password",
+            role: "normal",
+        }
+
+        const foundUserWithEmail = await User.findOne({ where: { email: inputData.email } });
+        // console.log({ foundUserWithId })
+
+        if (foundUserWithEmail) {
+            // res.statusCode = 404
+            throw new Error('user already exists');
+        }
+
         const user = await User.create(inputData)
         // console.log("user", JSON.stringify(user, null, 2))
 
         const msg = "Successfully created User"
         const data = user
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const read_users = async () => {
+const readUsers = async () => {
     console.log("start read_users")
 
     try {
@@ -47,14 +55,15 @@ const read_users = async () => {
 
         const data = users
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const read_users2 = async () => {
-    console.log("start read_users2")
+const readUsers2 = async () => {
+    console.log("start readUsers2")
 
     try {
         const users = await User.findAll({ include: 'posts' })
@@ -77,28 +86,30 @@ const read_users2 = async () => {
 
         const data = arrangedResData
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const read_users3 = async () => {
-    console.log("start read_users3")
+const readUsers3 = async () => {
+    console.log("start readUsers3")
 
     try {
         const [results, metadata] = await sequelize.query("SELECT * FROM users");
         // console.log("users metadata", JSON.stringify(metadata, null, 2))
         const msg = "Successfully read User"
         const data = metadata
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const read_user = async () => {
-    console.log("start read_user")
+const readUser = async () => {
+    console.log("start readUser")
 
     const id = 1
 
@@ -108,14 +119,15 @@ const read_user = async () => {
 
         const msg = user ? "Successfully searched Users" : "Successfully searched Users but empty"
         const data = user
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const update_user = async () => {
-    console.log("start update_user")
+const updateUser = async () => {
+    console.log("start updateUser")
 
     const id = 2
 
@@ -146,14 +158,15 @@ const update_user = async () => {
 
         const msg = "Successfully updated User"
         const data = foundUserWithId
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const destroy_user = async () => {
-    console.log("start destroy_user")
+const deleteUser = async () => {
+    console.log("start deleteUser")
 
     const id = 2
 
@@ -175,14 +188,15 @@ const destroy_user = async () => {
         });
         const msg = "Successfully deleted User"
         const data = foundUserWithId
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const search_users = async () => {
-    console.log("start search_users")
+const searchUsers = async () => {
+    console.log("start searchUsers")
 
     const keyword = "Doe"
     try {
@@ -205,14 +219,15 @@ const search_users = async () => {
 
         const data = users
         const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
 }
 
-const truncate_users = async () => {
-    console.log("start truncate_users")
+const truncateUsers = async () => {
+    console.log("start truncateUsers")
 
     try {
         await User.destroy({
@@ -220,7 +235,8 @@ const truncate_users = async () => {
         });
 
         const data = []
-        const msg = "Successfully truncate Users but empty"
+        const msg = "Successfully truncate Users but"
+
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -228,6 +244,6 @@ const truncate_users = async () => {
 }
 
 module.exports = {
-    start_user
+    startUser
 }
 
