@@ -11,7 +11,7 @@ async function startUser() {
     // readUser()
     // searchUsers()
     // updateUser()
-    deleteUser()
+    // deleteUser()
     // truncateUsers()
 }
 
