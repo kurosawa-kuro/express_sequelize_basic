@@ -112,8 +112,8 @@ const deleteUser = asyncHandler(async (req, res) => {
     return res.status(201).json({ isSuccess: true, msg, data })
 })
 
-// @desc    Search user
-// @route   GET users/search?keyword
+// @desc    Search users
+// @route   GET /users/search?keyword
 // @access  Public
 const searchUsers = asyncHandler(async (req, res) => {
     const { keyword } = req.query
