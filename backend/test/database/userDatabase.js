@@ -11,8 +11,8 @@ async function startUser() {
     // readUser()
     // searchUsers()
     // updateUser()
-    // deleteUser()
-    truncateUsers()
+    deleteUser()
+    // truncateUsers()
 }
 
 const createUser = async () => {
@@ -118,7 +118,7 @@ const readUser = async () => {
         const user = await User.findOne({ where: { id }, include: 'posts' })
         // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
 
-        const msg = user ? "Successfully searched Users" : "Successfully searched Users but empty"
+        const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
         const data = user
 
         // return res.status(200).json({ isSuccess: true, msg, data })
@@ -171,20 +171,14 @@ const deleteUser = async () => {
         // const id = req.params.id
         const id = 2
 
-        let foundUserWithId
-
-        foundUserWithId = await User.findByPk(id);
+        const foundUserWithId = await User.findByPk(id);
         // console.log({ foundUserWithId })
-    } catch (error) {
-        console.log({ isSuccess: false, error })
-    }
 
-    if (!foundUserWithId) {
-        // res.statusCode = 404
-        throw new Error('user not found');
-    }
+        if (!foundUserWithId) {
+            // res.statusCode = 404
+            throw new Error('user not found');
+        }
 
-    try {
         await User.destroy({
             where: { id }
         });
