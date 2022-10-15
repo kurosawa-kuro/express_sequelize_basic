@@ -5,20 +5,20 @@ async function startUser() {
     console.log("start_user")
 
     // createUser()
-    readUsers()
+    // readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
     // updateUser()
     // deleteUser()
-    // truncateUsers()
+    truncateUsers()
 }
 
 const createUser = async () => {
+    console.log("start createUser")
     try {
-        console.log("start createUser")
-
+        // const body = req.body
         const body = {
             name: "abc",
             email: "abc@abc.com",
@@ -40,6 +40,7 @@ const createUser = async () => {
         const msg = "Successfully created User"
         const data = user
 
+        // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -48,7 +49,6 @@ const createUser = async () => {
 
 const readUsers = async () => {
     console.log("start read_users")
-
     try {
         const users = await User.findAll({ include: 'posts' })
         // console.log("users", JSON.stringify(users, null, 2))
@@ -56,6 +56,7 @@ const readUsers = async () => {
         const data = users
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -64,7 +65,6 @@ const readUsers = async () => {
 
 const readUsers2 = async () => {
     console.log("start readUsers2")
-
     try {
         const users = await User.findAll({ include: 'posts' })
         // console.log("users", JSON.stringify(users, null, 2))
@@ -87,6 +87,7 @@ const readUsers2 = async () => {
         const data = arrangedResData
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -95,13 +96,13 @@ const readUsers2 = async () => {
 
 const readUsers3 = async () => {
     console.log("start readUsers3")
-
     try {
         const [results, metadata] = await sequelize.query("SELECT * FROM users");
         // console.log("users metadata", JSON.stringify(metadata, null, 2))
         const msg = "Successfully read User"
         const data = metadata
 
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -110,16 +111,17 @@ const readUsers3 = async () => {
 
 const readUser = async () => {
     console.log("start readUser")
-
-    const id = 1
-
     try {
+        // const id = req.params.id
+        const id = 1
+
         const user = await User.findOne({ where: { id }, include: 'posts' })
         // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
 
         const msg = user ? "Successfully searched Users" : "Successfully searched Users but empty"
         const data = user
 
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -128,37 +130,35 @@ const readUser = async () => {
 
 const updateUser = async () => {
     console.log("start updateUser")
-
-    const id = 2
-
-    const inputData = {
-        name: "updated name",
-        role: "admin",
-    }
-
-    let foundUserWithId
     try {
-        foundUserWithId = await User.findByPk(id);
+        // const id = req.params.id
+        const id = 2
+
+        // const body = req.body
+        const body = {
+            name: "updated name",
+            role: "admin",
+        }
+
+        const foundUserWithId = await User.findByPk(id);
         // console.log({ foundUserWithId })
-    } catch (error) {
-        console.log({ isSuccess: false, error })
-    }
 
-    if (!foundUserWithId) {
-        throw new Error('user not found');
-    }
+        if (!foundUserWithId) {
+            // res.statusCode = 404
+            throw new Error('user not found');
+        }
 
-    try {
-        await User.update(inputData, {
+        await User.update(body, {
             where: { id }
         });
 
-        foundUserWithId.name = inputData.name
-        foundUserWithId.role = inputData.role
+        foundUserWithId.name = body.name
+        foundUserWithId.role = body.role
 
         const msg = "Successfully updated User"
         const data = foundUserWithId
 
+        // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -167,11 +167,12 @@ const updateUser = async () => {
 
 const deleteUser = async () => {
     console.log("start deleteUser")
-
-    const id = 2
-
-    let foundUserWithId
     try {
+        // const id = req.params.id
+        const id = 2
+
+        let foundUserWithId
+
         foundUserWithId = await User.findByPk(id);
         // console.log({ foundUserWithId })
     } catch (error) {
@@ -179,6 +180,7 @@ const deleteUser = async () => {
     }
 
     if (!foundUserWithId) {
+        // res.statusCode = 404
         throw new Error('user not found');
     }
 
@@ -189,6 +191,7 @@ const deleteUser = async () => {
         const msg = "Successfully deleted User"
         const data = foundUserWithId
 
+        // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -197,9 +200,9 @@ const deleteUser = async () => {
 
 const searchUsers = async () => {
     console.log("start searchUsers")
-
-    const keyword = "Doe"
     try {
+        const keyword = "Doe"
+
         const users = await User.findAll({
             where: {
                 [Op.or]: [
@@ -220,6 +223,7 @@ const searchUsers = async () => {
         const data = users
         const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
 
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -237,6 +241,7 @@ const truncateUsers = async () => {
         const data = []
         const msg = "Successfully truncate Users but"
 
+        // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
