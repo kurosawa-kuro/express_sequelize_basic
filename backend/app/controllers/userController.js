@@ -51,52 +51,71 @@ const readUsers = asyncHandler(async (req, res) => {
 const readUser = asyncHandler(async (req, res) => {
     const id = req.params.id
 
-    const foundUser = await User.findOne({ where: { id } })
+    const user = await User.findOne({ where: { id }, include: 'posts' })
+    // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
 
-    if (!foundUser) {
-        res.statusCode = 404
-        throw new Error('user not found');
-    }
+    const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
+    const data = user
 
-    res.status(200).json(foundUser);
+    return res.status(200).json({ isSuccess: true, msg, data })
 })
 
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Public
 const updateUser = asyncHandler(async (req, res) => {
-    // const id = req.params.id
+    const id = req.params.id
 
-    // const foundUser = await User.findOne({ where: { id } })
+    const body = req.body
 
-    // if (!foundUser) {
-    //     res.statusCode = 404
-    //     throw new Error('user not found');
-    // }
+    const foundUserWithId = await User.findByPk(id);
+    // console.log({ foundUserWithId })
 
-    // res.status(200).json(foundUser);
+    if (!foundUserWithId) {
+        res.statusCode = 404
+        throw new Error('user not found');
+    }
+
+    await User.update(body, {
+        where: { id }
+    });
+
+    foundUserWithId.name = body.name
+    foundUserWithId.role = body.role
+
+    const msg = "Successfully updated User"
+    const data = foundUserWithId
+
+    return res.status(201).json({ isSuccess: true, msg, data })
 })
 
 // @desc    Delete user
 // @route   DELETE users/:id
 // @access  Public
 const deleteUser = asyncHandler(async (req, res) => {
-    // const id = req.params.id
+    const id = req.params.id
 
-    // const foundUser = await User.findOne({ where: { id } })
+    const foundUserWithId = await User.findByPk(id);
+    // console.log({ foundUserWithId })
 
-    // if (!foundUser) {
-    //     res.statusCode = 404
-    //     throw new Error('user not found');
-    // }
+    if (!foundUserWithId) {
+        res.statusCode = 404
+        throw new Error('user not found');
+    }
 
-    // res.status(200).json(foundUser);
+    await User.destroy({
+        where: { id }
+    });
+    const msg = "Successfully deleted User"
+    const data = foundUserWithId
+
+    return res.status(201).json({ isSuccess: true, msg, data })
 })
 
 // @desc    Search user
 // @route   GET users/search?keyword
 // @access  Public
-const searchUser = asyncHandler(async (req, res) => {
+const searchUsers = asyncHandler(async (req, res) => {
     const { keyword } = req.query
 
     const users = await User.findAll({
@@ -116,7 +135,10 @@ const searchUser = asyncHandler(async (req, res) => {
         }
     })
 
-    res.status(200).json(users);
+    const data = users
+    const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
+
+    return res.status(200).json({ isSuccess: true, msg, data })
 })
 
 
@@ -124,7 +146,7 @@ module.exports = {
     createUser,
     readUsers,
     readUser,
-    searchUser,
+    searchUsers,
     updateUser,
     deleteUser
 }

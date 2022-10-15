@@ -5,7 +5,7 @@ async function startUser() {
     console.log("start_user")
 
     // createUser()
-    // readUsers()
+    readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
@@ -195,6 +195,7 @@ const deleteUser = async () => {
 const searchUsers = async () => {
     console.log("start searchUsers")
     try {
+        // const { keyword } = req.query
         const keyword = "Doe"
 
         const users = await User.findAll({
