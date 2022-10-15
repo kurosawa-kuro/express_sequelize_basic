@@ -97,9 +97,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/search/:keyword
 // @access  Public
 const searchUser = asyncHandler(async (req, res) => {
-    console.log("hit Search user")
-
-    console.log("req.query", req.query)
     const { keyword } = req.query
 
     const users = await User.findAll({

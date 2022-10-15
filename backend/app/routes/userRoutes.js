@@ -10,6 +10,7 @@ router.get('/', userController.readUsers)
 router.get('/:id', userController.readUser)
 
 
+
 router.put('/:id', userController.updateUser)
 router.delete('/:id', userController.deleteUser)
 
