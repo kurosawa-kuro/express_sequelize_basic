@@ -50,7 +50,6 @@ async function read_users() {
     } catch (error) {
         console.log({ error })
     }
-
 }
 
 async function read_users2() {
@@ -72,6 +71,7 @@ async function read_user() {
     console.log("start read_user")
 
     const id = 2
+
     try {
         const user = await User.findOne({ where: { id }, include: 'posts' })
         // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
@@ -95,7 +95,9 @@ async function read_user() {
 
 async function update_user() {
     console.log("start update_user")
+
     const id = 3
+
     const inputData = {
         name: "updated name",
         role: "admin",
