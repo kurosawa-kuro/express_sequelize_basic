@@ -5,13 +5,13 @@ async function startUser() {
     console.log("start_user")
 
     // createUser()
-    readUsers()
+    // readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
     // updateUser()
-    // deleteUser()
+    deleteUser()
     // truncateUsers()
 }
 
@@ -51,7 +51,7 @@ const readUsers = async () => {
     console.log("start read_users")
     try {
         const users = await User.findAll({ include: 'posts' })
-        // console.log("users", JSON.stringify(users, null, 2))
+        console.log("users", JSON.stringify(users, null, 2))
 
         const data = users
         const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
@@ -169,7 +169,7 @@ const deleteUser = async () => {
     console.log("start deleteUser")
     try {
         // const id = req.params.id
-        const id = 2
+        const id = 1
 
         const foundUserWithId = await User.findByPk(id);
         // console.log({ foundUserWithId })
