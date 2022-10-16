@@ -3,7 +3,7 @@ module.exports = {
     up: async (queryInterface, DataTypes) => {
         await queryInterface.addConstraint('posts', {
             type: 'foreign key',
-            name: 'userId',
+            name: 'fk_users_id',
             fields: ['userId'],
             references: {
                 table: 'users',

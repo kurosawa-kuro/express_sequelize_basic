@@ -13,9 +13,10 @@ const createUser = asyncHandler(async (req, res) => {
         return res.status(422).json({ errors: errors.array() });
     }
 
-    const body = req.body
+    // const body = req.body
+    console.log("req.body", req.body)
 
-    const foundUserWithEmail = await User.findOne({ where: { email: body.email } });
+    const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
     // console.log({ foundUserWithId })
 
     if (foundUserWithEmail) {
@@ -23,7 +24,7 @@ const createUser = asyncHandler(async (req, res) => {
         throw new Error('user already exists');
     }
 
-    const user = await User.create(body)
+    const user = await User.create(req.body)
     // console.log("user", JSON.stringify(user, null, 2))
 
     const msg = "Successfully created User"
