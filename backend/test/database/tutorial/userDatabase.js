@@ -4,7 +4,8 @@
 async function startUser(Users) {
     console.log("start_user")
 
-    addUser(Users)
+    // addUser(Users)
+    crudUser(Users)
     // readUsers()
     // readUsers2()
     // readUsers3()
@@ -18,23 +19,50 @@ async function startUser(Users) {
 const addUser = async (Users) => {
     console.log("start createUser")
     try {
-        // const body = req.body
-        const body = {
+        const user = await Users.create({
             name: "abc",
-            email: "abc@abc.com",
-            password: "unhashed_password",
-            role: "normal",
+            email: "abc@abc.com"
+        })
+
+        const msg = "Success add user"
+        const data = user.toJSON()
+
+        console.log({ isSuccess: true, msg, data })
+    } catch (error) {
+        console.log({ isSuccess: false, error })
+    }
+}
+
+const crudUser = async (Users) => {
+    console.log("start crudUser")
+    try {
+
+        {
+            // insert
+            const user = await Users.create({
+                name: "abc",
+                email: "abc@abc.com"
+            })
+
+            const msg = "Seccess insert user"
+            const data = user.toJSON()
+
+            console.log({ isSuccess: true, msg, data })
         }
 
+        {
+            // update
+            const user = await Users.update({
+                name: "update abc",
+            }, { where: { id: 2 } })
 
-        const user = await Users.create(body)
-        // console.log("user", JSON.stringify(user, null, 2))
+            console.log({ user })
 
-        const msg = ""
-        const data = user
+            const msg = "Seccess update user"
+            const data = undefined
 
-        // return res.status(201).json({ isSuccess: true, msg, data })
-        console.log({ isSuccess: true, msg, data })
+            console.log({ isSuccess: true, msg, data })
+        }
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
