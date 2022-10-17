@@ -4,14 +4,14 @@ const { sequelize, User } = require("../../db/models/index")
 async function startUser() {
     console.log("start_user")
 
-    // createUser()
+    createUser()
     // readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
     // updateUser()
-    deleteUser()
+    // deleteUser()
     // truncateUsers()
 }
 
@@ -19,14 +19,17 @@ const createUser = async () => {
     console.log("start createUser")
     try {
         // const body = req.body
-        const body = {
-            name: "abc",
-            email: "abc@abc.com",
-            password: "unhashed_password",
-            role: "normal",
+        const req = {
+            body: {
+                name: "abc",
+                email: "1bc@abc.com",
+                password: "unhashed_password",
+                role: "normal",
+            }
         }
 
-        const foundUserWithEmail = await User.findOne({ where: { email: body.email } });
+        // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
+        const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
         // console.log({ foundUserWithId })
 
         if (foundUserWithEmail) {
@@ -34,7 +37,7 @@ const createUser = async () => {
             throw new Error('user already exists');
         }
 
-        const user = await User.create(body)
+        const user = await User.create(req.body)
         // console.log("user", JSON.stringify(user, null, 2))
 
         const msg = "Successfully created User"

@@ -13,9 +13,6 @@ const createUser = asyncHandler(async (req, res) => {
         return res.status(422).json({ errors: errors.array() });
     }
 
-    // const body = req.body
-    console.log("req.body", req.body)
-
     const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
     // console.log({ foundUserWithId })
 
