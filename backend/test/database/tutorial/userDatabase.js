@@ -1,3 +1,10 @@
+var sys = require('sys');
+var colors = require('colors');
+
+
+
+
+
 // const { Op } = require("sequelize");
 // const { Sequelize, DataTypes } = require('sequelize');
 
@@ -39,6 +46,7 @@ const crudUser = async (Users) => {
 
         {
             // insert
+            console.log('start crudUser insert'.cyan);
             const user = await Users.create({
                 name: "abc",
                 email: "abc@abc.com"
@@ -52,6 +60,7 @@ const crudUser = async (Users) => {
 
         {
             // update
+            console.log('start crudUser update'.cyan);
             const user = await Users.update({
                 name: "update abc",
             }, { where: { id: 2 } })
@@ -60,6 +69,51 @@ const crudUser = async (Users) => {
 
             const msg = "Seccess update user"
             const data = undefined
+
+            console.log({ isSuccess: true, msg, data })
+        }
+
+        {
+            // delete
+            console.log('start crudUser delete'.cyan);
+            const user = await Users.destroy({ where: { id: 3 } })
+
+            console.log({ user })
+
+            const msg = "Seccess delete user"
+            const data = undefined
+
+            console.log({ isSuccess: true, msg, data })
+        }
+
+        {
+            // truncate
+            console.log('start crudUser truncate'.cyan);
+            const user = await Users.destroy({ truncate: true })
+
+            console.log({ user })
+
+            const msg = "Seccess truncate users"
+            const data = undefined
+
+            console.log({ isSuccess: true, msg, data })
+        }
+
+        {
+            // bulk insert
+            console.log('start crudUser bulk insert'.cyan);
+            const users = await Users.bulkCreate([
+                {
+                    name: "abc2",
+                    email: "abc2@abc.com"
+                }, {
+                    name: "abc3",
+                    email: "abc3@abc.com"
+                }
+            ])
+
+            const msg = "Seccess bulk insert user"
+            const data = users
 
             console.log({ isSuccess: true, msg, data })
         }
