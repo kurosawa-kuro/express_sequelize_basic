@@ -33,8 +33,8 @@ async function start() {
     db.Tag = require('./models/tagModel')(sequelize, DataTypes)
     console.log("db.Tag", db.Tag)
 
-    db.PostTags = require('./models/postTagModel')(sequelize, DataTypes)
-    console.log("db.PostTags", db.PostTags)
+    db.PostTag = require('./models/postTagModel')(sequelize, DataTypes)
+    console.log("db.PostTag", db.PostTag)
 
     // One To One
     // db.User.hasOne(db.Post, { foreignKey: 'user_id' })

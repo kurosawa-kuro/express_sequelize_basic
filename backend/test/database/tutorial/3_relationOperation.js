@@ -140,7 +140,7 @@ const setupManyToMany = async (db) => {
 
             // bulk insert post_tags
             console.log('start oneToone setup bulk insert post_tags'.cyan);
-            const postTags = await db.PostTags.bulkCreate([
+            const postTags = await db.PostTag.bulkCreate([
                 {
                     postId: 1,
                     tagId: 1,
