@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-const { startUser } = require('./userDatabase');
+const { startBasicOperation } = require('./1_basicOperation');
+const { startRelationOperation } = require('./3_relationOperation');
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -26,11 +27,19 @@ async function start() {
     db.users = require('./models/userModel')(sequelize, DataTypes)
     console.log("db.users", db.users)
 
-    // db.sequelize.sync({ force: true }).then(() => {
-    //     console.log('re synced')
-    // })
+    db.posts = require('./models/postModel')(sequelize, DataTypes)
+    console.log("db.posts", db.posts)
 
-    startUser(db.users)
+    db.users.hasOne(db.posts)
+    db.posts.belongsTo(db.users, { foreignkey: 'user_id' })
+
+    db.sequelize.sync({ force: true }).then(() => {
+        console.log('re synced')
+    })
+
+    // startBasicOperation(db.users)
+    // console.log("db", db)
+    startRelationOperation(db)
 }
 
 start()

@@ -13,6 +13,8 @@ async function startUser(Users) {
 
     // addUser(Users)
     // crudUser(Users)
+
+
     // readUsers()
     // readUsers2()
     // readUsers3()
@@ -134,6 +136,24 @@ const crudUser = async (Users) => {
     }
 }
 
+// const queryData = async (Users) => {
+//     console.log("start queryData")
+//     try {
+//         const user = await Users.create({
+//             name: "abc",
+//             email: "abc@abc.com"
+//         })
+
+//         const msg = "Success add user"
+//         const data = user.toJSON()
+
+//         console.log({ isSuccess: true, msg, data })
+//     } catch (error) {
+//         console.log({ isSuccess: false, error })
+//     }
+// }
+
+
 const queryData = async (Users) => {
     console.log("start queryData")
     try {
@@ -150,7 +170,6 @@ const queryData = async (Users) => {
         console.log({ isSuccess: false, error })
     }
 }
-
 module.exports = {
     startUser
 }
