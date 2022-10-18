@@ -44,8 +44,8 @@ async function start() {
     db.posts.belongsTo(db.users, { foreignKey: 'user_id' })
 
     // Many To Many
-    db.posts.belongsToMany(db.tags, { through: 'post_tag' })
-    db.tags.belongsToMany(db.posts, { through: 'post_tag' })
+    db.posts.belongsToMany(db.tags, { through: 'post_tags' })
+    db.tags.belongsToMany(db.posts, { through: 'post_tags' })
 
     // db.sequelize.sync({ force: true }).then(() => { console.log('re synced') })
 
