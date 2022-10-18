@@ -55,25 +55,21 @@ const setup = async (db) => {
                 title: "title1",
                 content: "content content content content content1",
                 user_id: 1,
-                // UserId: 1,
             }, {
                 name: "name2",
                 title: "title2",
                 content: "content content content content content2",
                 user_id: 1,
-                // UserId: 1,
             }, {
                 name: "name3",
                 title: "title3",
                 content: "content content content content content3",
                 user_id: 1,
-                // UserId: 1,
             }, {
                 name: "name4",
                 title: "title4",
                 content: "content content content content content4",
                 user_id: 2,
-                // UserId: 1,
             }
         ])
 
