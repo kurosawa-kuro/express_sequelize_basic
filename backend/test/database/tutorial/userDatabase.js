@@ -44,9 +44,11 @@ const crudUser = async (Users) => {
     console.log("start crudUser")
     try {
 
+
+
         {
-            // insert
-            console.log('start crudUser insert'.cyan);
+            // Create
+            console.log('start crudUser create'.cyan);
             const user = await Users.create({
                 name: "abc",
                 email: "abc@abc.com"
@@ -59,8 +61,19 @@ const crudUser = async (Users) => {
         }
 
         {
-            // update
-            console.log('start crudUser update'.cyan);
+            // Read
+            console.log('start crudUser read'.cyan);
+            const users = await Users.findAll()
+
+            const msg = "Seccess find all user"
+            const data = users
+
+            console.log({ isSuccess: true, msg, data })
+        }
+
+        {
+            // Update
+            console.log('start crudUser Update'.cyan);
             const user = await Users.update({
                 name: "update abc",
             }, { where: { id: 2 } })
@@ -74,7 +87,7 @@ const crudUser = async (Users) => {
         }
 
         {
-            // delete
+            // Delete
             console.log('start crudUser delete'.cyan);
             const user = await Users.destroy({ where: { id: 3 } })
 
@@ -87,7 +100,7 @@ const crudUser = async (Users) => {
         }
 
         {
-            // truncate
+            // Truncate
             console.log('start crudUser truncate'.cyan);
             const user = await Users.destroy({ truncate: true })
 
@@ -117,6 +130,8 @@ const crudUser = async (Users) => {
 
             console.log({ isSuccess: true, msg, data })
         }
+
+
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
