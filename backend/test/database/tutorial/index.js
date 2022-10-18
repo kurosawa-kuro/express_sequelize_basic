@@ -33,9 +33,9 @@ async function start() {
     db.users.hasOne(db.posts, { foreignKey: 'user_id' })
     db.posts.belongsTo(db.users, { foreignKey: 'user_id' })
 
-    db.sequelize.sync({ force: true }).then(() => {
-        console.log('re synced')
-    })
+    // db.sequelize.sync({ force: true }).then(() => {
+    //     console.log('re synced')
+    // })
 
     // startBasicOperation(db.users)
     // console.log("db", db)

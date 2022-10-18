@@ -30,7 +30,7 @@ const oneToOne = async (db) => {
     try {
         // {
         //     // bulk insert
-        //     console.log('start crudUser bulk insert'.cyan);
+        //     console.log('start crudUser bulk insert posts'.cyan);
         //     const posts = await db.posts.bulkCreate([
         //         {
         //             name: "name1",
@@ -64,7 +64,7 @@ const oneToOne = async (db) => {
         //         }
         //     ])
 
-        //     const msg = "Seccess bulk insert user"
+        //     const msg = "Seccess bulk insert posts"
         //     const data = posts
         //     console.log("posts", JSON.stringify(data, null, 2))
 
