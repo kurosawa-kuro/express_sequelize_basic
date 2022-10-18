@@ -11,13 +11,13 @@ var colors = require('colors');
 async function startRelationOperation(db) {
     console.log("startRelationOperation")
     // 【oneToOne】【oneToMany】
-    // setup(db)
-    // oneToOne(db)
+    setup(db)
+    oneToOne(db)
     // oneToOneDelete(db)
 
     // 【ManyToMany】
     // setupManyToMany(db)
-    ManyToMany(db)
+    // ManyToMany(db)
     // oneToManyDelete(db)
 }
 
@@ -27,7 +27,7 @@ const setup = async (db) => {
 
         // bulk insert users
         console.log('start oneToone setup bulk insert users'.cyan);
-        const users = await db.users.bulkCreate([
+        const users = await db.User.bulkCreate([
             {
                 name: "abc1",
                 email: "abc1@abc.com"
@@ -94,9 +94,9 @@ const oneToOne = async (db) => {
         {
             // Users.findAll
             console.log('start crudUser Users.findAll'.cyan);
-            console.log("db.users", db.users)
+            console.log("db.User", db.User)
             console.log("db.posts", db.posts)
-            const posts = await db.users.findAll({ include: db.posts })
+            const posts = await db.User.findAll({ include: db.posts })
 
             const data = posts
             console.log("posts", JSON.stringify(data, null, 2))
@@ -112,7 +112,7 @@ const oneToOneDelete = async (db) => {
         {
             // Users.findAll
             console.log('start crudUser Users.findAll'.cyan);
-            const post = await db.users.destroy({ where: { id: 1 } })
+            const post = await db.User.destroy({ where: { id: 1 } })
 
             const data = post
             console.log("posts", JSON.stringify(data, null, 2))

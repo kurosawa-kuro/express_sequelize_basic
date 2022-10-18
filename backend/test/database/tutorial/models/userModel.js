@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Users = sequelize.define('users', {
+    const User = sequelize.define('users', {
         name: DataTypes.STRING,
         email: {
             type: DataTypes.STRING,
@@ -18,5 +18,5 @@ module.exports = (sequelize, DataTypes) => {
         // engine: 'MYISAM'
     });
 
-    return Users;
+    return User;
 }
