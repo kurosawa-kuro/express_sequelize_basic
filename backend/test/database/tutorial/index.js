@@ -33,7 +33,7 @@ async function start() {
     db.tags = require('./models/tagModel')(sequelize, DataTypes)
     console.log("db.posts", db.tags)
 
-    db.postTags = require('./models/post_tagModel')(sequelize, DataTypes)
+    db.postTags = require('./models/postTagModel')(sequelize, DataTypes)
     console.log("db.posts", db.postTags)
 
     // One To One
@@ -47,11 +47,7 @@ async function start() {
     db.posts.belongsToMany(db.tags, { through: 'post_tag' })
     db.tags.belongsToMany(db.posts, { through: 'post_tag' })
 
-
-
-    // db.sequelize.sync({ force: true }).then(() => {
-    //     console.log('re synced')
-    // })
+    // db.sequelize.sync({ force: true }).then(() => { console.log('re synced') })
 
     // startBasicOperation(db.users)
     startRelationOperation(db)
