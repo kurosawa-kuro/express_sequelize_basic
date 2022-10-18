@@ -31,14 +31,13 @@ async function start() {
     console.log("db.posts", db.posts)
 
     db.users.hasOne(db.posts, { foreignKey: 'user_id' })
-    db.posts.belongsTo(db.users, { foreignKey: 'user_id' })
+    db.posts.belongsTo(db.users, { foreignKey: 'user_id', as: 'posts' })
 
     // db.sequelize.sync({ force: true }).then(() => {
     //     console.log('re synced')
     // })
 
     // startBasicOperation(db.users)
-    // console.log("db", db)
     startRelationOperation(db)
 }
 
