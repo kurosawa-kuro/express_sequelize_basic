@@ -30,8 +30,8 @@ async function start() {
     db.posts = require('./models/postModel')(sequelize, DataTypes)
     console.log("db.posts", db.posts)
 
-    db.users.hasOne(db.posts)
-    db.posts.belongsTo(db.users, { foreignkey: 'user_id' })
+    db.users.hasOne(db.posts, { foreignKey: 'user_id' })
+    db.posts.belongsTo(db.users, { foreignKey: 'user_id' })
 
     db.sequelize.sync({ force: true }).then(() => {
         console.log('re synced')
