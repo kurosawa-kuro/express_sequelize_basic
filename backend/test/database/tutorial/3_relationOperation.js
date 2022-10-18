@@ -11,13 +11,13 @@ var colors = require('colors');
 async function startRelationOperation(db) {
     console.log("startRelationOperation")
     // 【oneToOne】【oneToMany】
-    setup(db)
-    oneToOne(db)
+    // setup(db)
+    // oneToOne(db)
     // oneToOneDelete(db)
 
     // 【ManyToMany】
     // setupManyToMany(db)
-    // ManyToMany(db)
+    ManyToMany(db)
     // oneToManyDelete(db)
 }
 
@@ -126,7 +126,7 @@ const setupManyToMany = async (db) => {
         {
             // bulk insert tags
             console.log('start oneToone setup bulk insert users'.cyan);
-            const tags = await db.tags.bulkCreate([
+            const tags = await db.Tag.bulkCreate([
                 {
                     name: "tag name 1"
                 },
@@ -167,7 +167,7 @@ const ManyToMany = async (db) => {
         {
             // Users.findAll
             console.log('start crudUser Users.findAll'.cyan);
-            const posts = await db.Post.findAll({ include: db.tags })
+            const posts = await db.Post.findAll({ include: db.Tag })
 
             const data = posts
             console.log("posts", JSON.stringify(data, null, 2))

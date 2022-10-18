@@ -30,11 +30,11 @@ async function start() {
     db.Post = require('./models/postModel')(sequelize, DataTypes)
     console.log("db.Post", db.Post)
 
-    db.tags = require('./models/tagModel')(sequelize, DataTypes)
-    console.log("db.Post", db.tags)
+    db.Tag = require('./models/tagModel')(sequelize, DataTypes)
+    console.log("db.Tag", db.Tag)
 
     db.PostTags = require('./models/postTagModel')(sequelize, DataTypes)
-    console.log("db.Post", db.PostTags)
+    console.log("db.PostTags", db.PostTags)
 
     // One To One
     // db.User.hasOne(db.Post, { foreignKey: 'user_id' })
@@ -44,8 +44,8 @@ async function start() {
     db.Post.belongsTo(db.User, { foreignKey: 'user_id' })
 
     // Many To Many
-    db.Post.belongsToMany(db.tags, { through: 'post_tags' })
-    db.tags.belongsToMany(db.Post, { through: 'post_tags' })
+    db.Post.belongsToMany(db.Tag, { through: 'post_tags' })
+    db.Tag.belongsToMany(db.Post, { through: 'post_tags' })
 
     // db.sequelize.sync({ force: true }).then(() => { console.log('re synced') })
 
