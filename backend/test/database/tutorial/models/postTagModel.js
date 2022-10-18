@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Post_Tag = sequelize.define('post_tags', {
+    const PostTags = sequelize.define('post_tags', {
         postId: DataTypes.INTEGER,
         tagId: DataTypes.INTEGER,
     }, {
@@ -7,5 +7,5 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: 'updated_at',
     });
 
-    return Post_Tag;
+    return PostTags;
 }
