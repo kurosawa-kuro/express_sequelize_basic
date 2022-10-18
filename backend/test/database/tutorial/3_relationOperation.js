@@ -44,7 +44,7 @@ const setup = async (db) => {
 
         // bulk insert posts
         console.log('start oneToone setup bulk insert posts'.cyan);
-        const posts = await db.posts.bulkCreate([
+        const posts = await db.Post.bulkCreate([
             {
                 name: "name1",
                 title: "title1",
@@ -94,12 +94,10 @@ const oneToOne = async (db) => {
         {
             // Users.findAll
             console.log('start crudUser Users.findAll'.cyan);
-            console.log("db.User", db.User)
-            console.log("db.posts", db.posts)
-            const posts = await db.User.findAll({ include: db.posts })
+            const users = await db.User.findAll({ include: db.Post })
 
-            const data = posts
-            console.log("posts", JSON.stringify(data, null, 2))
+            const data = users
+            console.log("users", JSON.stringify(data, null, 2))
         }
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -169,7 +167,7 @@ const ManyToMany = async (db) => {
         {
             // Users.findAll
             console.log('start crudUser Users.findAll'.cyan);
-            const posts = await db.posts.findAll({ include: db.tags })
+            const posts = await db.Post.findAll({ include: db.tags })
 
             const data = posts
             console.log("posts", JSON.stringify(data, null, 2))
