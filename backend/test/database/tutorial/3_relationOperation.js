@@ -17,7 +17,7 @@ async function startRelationOperation(db) {
 
     // 【ManyToMany】
     // setupManyToMany(db)
-    // ManyToMany(db)
+    ManyToMany(db)
     // oneToManyDelete(db)
 }
 
