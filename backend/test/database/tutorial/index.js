@@ -50,7 +50,7 @@ async function start() {
     // db.sequelize.sync({ force: true }).then(() => { console.log('re synced') })
 
     // startBasicOperation(db.users)
-    startRelationOperation(db)
+    // startRelationOperation(db)
 }
 
 start()
