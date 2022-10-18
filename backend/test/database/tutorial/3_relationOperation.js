@@ -10,19 +10,14 @@ var colors = require('colors');
 
 async function startRelationOperation(db) {
     console.log("startRelationOperation")
-    // 【oneToOne】
+    // 【oneToOne】【oneToMany】
     // setup(db)
     // oneToOne(db)
     // oneToOneDelete(db)
 
-    // 【oneToMany】
-    // setup(db)
-    // oneToMany(db)
-    // oneToManyDelete(db)
-
     // 【ManyToMany】
     // setupManyToMany(db)
-    ManyToMany(db)
+    // ManyToMany(db)
     // oneToManyDelete(db)
 }
 
