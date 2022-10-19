@@ -1,5 +1,13 @@
 # express_sequelize_basic
 
+
+```
+sequelize-cli model:generate --name Tag --attributes name:string
+sequelize-cli seed:generate --name create_fake_tag
+sequelize migration:generate --name add_tag
+sequelize db:migrate
+```
+
 ```
 npm i
 
