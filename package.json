@@ -18,7 +18,7 @@
     "test_backend": "jest backend/test/*",
     "test_watch": "jest --watchAll",
     "test_single": "jest todos.test.js",
-    "test_database": "node test/database/index.js"
+    "test_database": "node backend/test/db/index.js"
   },
   "repository": {
     "type": "git",

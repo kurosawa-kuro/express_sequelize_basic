@@ -1,11 +1,10 @@
 const { startUser } = require("./userDatabase.js")
-const { start_book } = require("../database/book")
-const { start_posts } = require("../database/post")
-const { start_auth } = require("../database/auth")
+const { startPost } = require("./postDatabase.js")
 
 async function start() {
     console.log("start database index")
     startUser()
+    // startPost()
     // start_book()
     // start_posts()
     // start_auth()
