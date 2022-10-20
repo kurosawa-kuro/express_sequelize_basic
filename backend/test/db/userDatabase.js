@@ -1,11 +1,12 @@
-const { Op } = require("sequelize");
-const { sequelize, User } = require("../../db/models/index")
+// const { Op } = require("sequelize");
+const db = require("../../db/models/index")
 
 async function startUser() {
     console.log("start_user")
+    // console.log({ User })
 
-    createUser()
-    // readUsers()
+    // createUser()
+    readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
@@ -29,7 +30,7 @@ const createUser = async () => {
         }
 
         // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
-        const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
+        const foundUserWithEmail = await DB.users.findOne({ where: { email: req.body.email } });
         // console.log({ foundUserWithId })
 
         if (foundUserWithEmail) {
@@ -50,10 +51,27 @@ const createUser = async () => {
     }
 }
 
+
 const readUsers = async () => {
     console.log("start read_users")
     try {
-        const users = await User.findAll({ include: 'posts' })
+        const users = await db.User.findAll({
+            include: [
+                {
+                    model: db.UserDetail,
+                    as: 'userDetail',
+                    attributes: ['phone', 'adress']
+                }, {
+                    model: db.Post,
+                    as: 'posts',
+                    attributes: ['name', 'content', 'image']
+                }, {
+                    model: db.Group,
+                    as: 'groups',
+                    attributes: ['name']
+                },
+            ],
+        })
         console.log("users", JSON.stringify(users, null, 2))
 
         const data = users
@@ -69,29 +87,15 @@ const readUsers = async () => {
 const readUsers2 = async () => {
     console.log("start readUsers2")
     try {
-        const users = await User.findAll({ include: 'posts' })
+        const user = await db.users.findByPk(1)
         // console.log("users", JSON.stringify(users, null, 2))
+        // console.log({ user })
 
-        let arrangedResData = [];
-        users.forEach(row => {
-            arrangedResData.push(
-                {
-                    "id": row.id,
-                    "name": row.name,
-                    "email": row.email,
-                    "password": row.password,
-                    "role": row.role,
-                    "avator": row.avator ? row.avator : "https://www.publicdomainpictures.net/pictures/300000/nahled/empty-white-room.jpg"
-                }
-            );
-        });
-        // console.log("arrangedResData", JSON.stringify(arrangedResData, null, 2))
-
-        const data = arrangedResData
-        const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+        const aaaa = user.aaaa()
+        console.log({ aaaa })
 
         // return res.status(200).json({ isSuccess: true, msg, data })
-        console.log({ isSuccess: true, msg, data })
+        // console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
     }
