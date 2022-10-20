@@ -1,5 +1,6 @@
 // const { Op } = require("sequelize");
-const db = require("../../db/models/index")
+// const db = require("../../db/models/index")
+const { Sample } = require("../../db/models/index")
 
 async function startSample() {
     console.log("start_post")
@@ -55,7 +56,7 @@ const createUser = async () => {
 const readSamples = async () => {
     console.log("start readSamples")
     try {
-        const samples = await db.Sample.findAll()
+        const samples = await Sample.findAll()
         console.log("samples", JSON.stringify(samples, null, 2))
 
         const data = samples

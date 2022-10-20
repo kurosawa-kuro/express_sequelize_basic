@@ -1,5 +1,5 @@
-const { startUser } = require("./userDatabase.js")
-const { startPost } = require("./postDatabase.js")
+const { startUser } = require("./user.js")
+const { startPost } = require("./post.js")
 const { startSample } = require("./sample.js")
 
 async function start() {
