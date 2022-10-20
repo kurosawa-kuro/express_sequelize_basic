@@ -6,14 +6,14 @@ async function startUsersGroups() {
     console.log("startUsersGroups")
     // console.log({ User })
 
-    createUsersGroups()
+    // createUsersGroups()
     // readUsersGroups()
     // readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
     // updateUser()
-    // deleteUser()
+    deleteUser()
     // truncateUsers()
 }
 
@@ -190,8 +190,16 @@ const deleteUser = async () => {
         await db.User.destroy({
             where: { id }
         });
+
+        const foundUsersGroupsWithId = await db.UsersGroups.findByPk(id);
+
+        if (foundUsersGroupsWithId !== null) {
+            // res.statusCode = 404
+            throw new Error('user exists');
+        }
+
         const msg = "Successfully deleted User"
-        const data = foundUserWithId
+        const data = undefined
 
         // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
