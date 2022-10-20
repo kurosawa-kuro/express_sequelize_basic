@@ -2,9 +2,7 @@ const bcrypt = require('bcryptjs')
 const { User } = require("../../db/models/index")
 const { faker } = require('@faker-js/faker');
 
-const { consoleLogJson } = require("../../library/index")
-
-const signin_user = {
+const signinUser = {
     name: "signin",
     email: "signin@signin.com",
     password: "signinsignin"
@@ -14,10 +12,10 @@ async function startAuth() {
     console.log("start auth")
 
     // signup()
-    // signin()
-    // delete_signin_user()
+    signin()
+    // delete_signinUser()
 
-    profile()
+    // profile()
 }
 
 async function signup() {
@@ -34,9 +32,9 @@ async function signup() {
             }
         }
 
-        req.body.name = signin_user.name
-        req.body.email = signin_user.email
-        req.body.password = signin_user.password
+        req.body.name = signinUser.name
+        req.body.email = signinUser.email
+        req.body.password = signinUser.password
 
         if (!req.body.name || !req.body.email || !req.body.password) {
             // res.statusCode = 404
@@ -54,7 +52,6 @@ async function signup() {
 
         // Hash password
         req.body.password = await User.generateHash(req.body.password)
-
 
         const user = await User.create(req.body)
 
@@ -74,15 +71,14 @@ async function signup() {
     }
 }
 
-
 async function signin() {
     try {
         console.log("start signin")
         // const body = req.body
         const req = {
             body: {
-                email: signin_user.email,
-                password: signin_user.password
+                email: signinUser.email,
+                password: signinUser.password
             }
         }
 
@@ -116,8 +112,8 @@ async function profile() {
         // const body = req.body
         const req = {
             body: {
-                email: signin_user.email,
-                password: signin_user.password
+                email: signinUser.email,
+                password: signinUser.password
             }
         }
         const userWithEmail = await User.findOne(
@@ -136,20 +132,19 @@ async function profile() {
     }
 }
 
-async function delete_signin_user() {
-    console.log("start delete_signin_user")
+async function delete_signinUser() {
+    console.log("start delete_signinUser")
     try {
         // const body = req.body
         const req = {
             body: {
-                email: signin_user.email,
-                password: signin_user.password
+                email: signinUser.email,
+                password: signinUser.password
             }
         }
 
         // Check for user email
         const userWithEmail = await User.findOne({ where: { email: req.body.email } })
-
 
         if (!userWithEmail) {
             // res.statusCode = 404
@@ -162,7 +157,7 @@ async function delete_signin_user() {
             }
         });
 
-        const msg = "Successfully delete_signin_user"
+        const msg = "Successfully delete_signinUser"
         const data = undefined
 
         // return res.status(201).json({ isSuccess: true, msg, data })
