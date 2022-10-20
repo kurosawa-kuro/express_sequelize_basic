@@ -5,7 +5,9 @@ const { faker } = require('@faker-js/faker');
 const signinUser = {
     name: "signin",
     email: "signin@signin.com",
-    password: "signinsignin"
+    password: "signinsignin",
+    avator: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1002.jpg",
+    admin: false
 }
 
 async function startAuth() {
@@ -116,6 +118,7 @@ async function profile() {
                 password: signinUser.password
             }
         }
+
         const userWithEmail = await User.findOne(
             {
                 where: { email: req.body.email },

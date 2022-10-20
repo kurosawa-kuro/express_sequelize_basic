@@ -26,7 +26,7 @@ const createUser = async () => {
                 name: "abc",
                 email: "1bc@abc.com",
                 password: "unhashed_password",
-                role: "normal",
+                admin: false,
             }
         }
 
