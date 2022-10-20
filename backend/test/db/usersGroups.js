@@ -8,12 +8,10 @@ async function startUsersGroups() {
 
     // createUsersGroups()
     // readUsersGroups()
-    // readUsers2()
-    // readUsers3()
-    // readUser()
+    readUserGroups()
     // searchUsers()
     // updateUser()
-    deleteUser()
+    // deleteUser()
     // truncateUsers()
 }
 
@@ -85,49 +83,30 @@ const readUsersGroups = async () => {
     }
 }
 
-const readUsers2 = async () => {
-    console.log("start readUsers2")
-    try {
-        const user = await db.User.findByPk(1)
-        // console.log("users", JSON.stringify(users, null, 2))
-        // console.log({ user })
-
-        const aaa = user.aaa(123)
-        console.log({ aaa })
-
-        // return res.status(200).json({ isSuccess: true, msg, data })
-        // console.log({ isSuccess: true, msg, data })
-    } catch (error) {
-        console.log({ isSuccess: false, error })
-    }
-}
-
-const readUsers3 = async () => {
-    console.log("start readUsers3")
-    try {
-        const [results, metadata] = await sequelize.query("SELECT * FROM users");
-        // console.log("users metadata", JSON.stringify(metadata, null, 2))
-        const msg = "Successfully read User"
-        const data = metadata
-
-        // return res.status(200).json({ isSuccess: true, msg, data })
-        console.log({ isSuccess: true, msg, data })
-    } catch (error) {
-        console.log({ isSuccess: false, error })
-    }
-}
-
-const readUser = async () => {
-    console.log("start readUser")
+const readUserGroups = async () => {
+    console.log("start readUserGroups")
     try {
         // const id = req.params.id
         const id = 1
 
-        const user = await db.User.findOne({ where: { id }, include: 'posts' })
-        // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
+        const userGroups = await db.UsersGroups.findAll({
+            where: { user_id: id }, include: [
+                {
+                    model: db.User,
+                    as: 'user',
+                    attributes: ['name']
+                }, {
+                    model: db.Group,
+                    as: 'group',
+                    attributes: ['name']
+                },
+            ],
+        })
+        console.log("JSON.stringify(userGroups, null, 2)", JSON.stringify(userGroups, null, 2))
 
-        const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
-        const data = user
+        const data = userGroups
+        const msg = data ? "Successfully found UsersGroups" : "Successfully found UsersGroups but empty"
+
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
