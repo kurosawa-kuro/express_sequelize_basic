@@ -40,11 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         expiresIn: '30d',
       })
     }
-
-    async aaa(id) {
-      const aaa = id + " aaa " + this.name
-      return aaa
-    }
   }
   User.init({
     name: DataTypes.STRING,

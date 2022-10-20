@@ -8,8 +8,8 @@ async function start() {
     console.log("start database index")
     // startUser()
     // startPost()
-    // startSample()
-    startUsersGroups()
+    startSample()
+    // startUsersGroups()
     // startAuth()
 }
 

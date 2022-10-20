@@ -3,14 +3,14 @@
 const { Sample } = require("../../db/models/index")
 
 async function startSample() {
-    console.log("start_post")
+    console.log("startSample")
     // console.log({ User })
 
     // createUser()
-    readSamples()
+    // readSamples()
     // readUsers2()
     // readUsers3()
-    // readUser()
+    readSample()
     // searchUsers()
     // updateUser()
     // deleteUser()
@@ -52,13 +52,16 @@ const createSample = async () => {
     }
 }
 
-const readSamples = async () => {
-    console.log("start readSamples")
+const readSample = async () => {
+    console.log("start readSample")
     try {
-        const samples = await Sample.findAll()
-        console.log("samples", JSON.stringify(samples, null, 2))
+        const sample = await Sample.findByPk(1)
+        console.log("sample", JSON.stringify(sample, null, 2))
 
-        const data = samples
+        const aaa = sample.aaa(123)
+        console.log({ aaa })
+
+        const data = sample
         const msg = data.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
