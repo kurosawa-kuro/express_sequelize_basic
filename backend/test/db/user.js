@@ -1,4 +1,4 @@
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 const db = require("../../db/models/index")
 // const { User } = require("../../db/models/index")
 
@@ -8,13 +8,13 @@ async function startUser() {
 
     // createUser()
     // readUsers()
-    readUsers2()
+    // readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
     // updateUser()
     // deleteUser()
-    // truncateUsers()
+    truncateUsers()
 }
 
 const createUser = async () => {
@@ -31,7 +31,7 @@ const createUser = async () => {
         }
 
         // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
-        const foundUserWithEmail = await DB.users.findOne({ where: { email: req.body.email } });
+        const foundUserWithEmail = await db.User.findOne({ where: { email: req.body.email } });
         // console.log({ foundUserWithId })
 
         if (foundUserWithEmail) {
@@ -39,7 +39,7 @@ const createUser = async () => {
             throw new Error('user already exists');
         }
 
-        const user = await User.create(req.body)
+        const user = await db.User.create(req.body)
         // console.log("user", JSON.stringify(user, null, 2))
 
         const msg = "Successfully created User"
@@ -122,7 +122,7 @@ const readUser = async () => {
         // const id = req.params.id
         const id = 1
 
-        const user = await User.findOne({ where: { id }, include: 'posts' })
+        const user = await db.User.findOne({ where: { id }, include: 'posts' })
         // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
 
         const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
@@ -147,7 +147,7 @@ const updateUser = async () => {
             role: "admin",
         }
 
-        const foundUserWithId = await User.findByPk(id);
+        const foundUserWithId = await db.User.findByPk(id);
         // console.log({ foundUserWithId })
 
         if (!foundUserWithId) {
@@ -155,7 +155,7 @@ const updateUser = async () => {
             throw new Error('user not found');
         }
 
-        await User.update(body, {
+        await db.User.update(body, {
             where: { id }
         });
 
@@ -178,7 +178,7 @@ const deleteUser = async () => {
         // const id = req.params.id
         const id = 1
 
-        const foundUserWithId = await User.findByPk(id);
+        const foundUserWithId = await db.User.findByPk(id);
         // console.log({ foundUserWithId })
 
         if (!foundUserWithId) {
@@ -186,7 +186,7 @@ const deleteUser = async () => {
             throw new Error('user not found');
         }
 
-        await User.destroy({
+        await db.User.destroy({
             where: { id }
         });
         const msg = "Successfully deleted User"
@@ -205,7 +205,7 @@ const searchUsers = async () => {
         // const { keyword } = req.query
         const keyword = "Doe"
 
-        const users = await User.findAll({
+        const users = await db.User.findAll({
             where: {
                 [Op.or]: [
                     {
@@ -223,7 +223,7 @@ const searchUsers = async () => {
         })
 
         const data = users
-        const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
+        const msg = data.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -236,7 +236,7 @@ const truncateUsers = async () => {
     console.log("start truncateUsers")
 
     try {
-        await User.destroy({
+        await db.User.destroy({
             truncate: true
         });
 

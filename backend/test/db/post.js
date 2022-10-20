@@ -30,7 +30,7 @@ const createUser = async () => {
         }
 
         // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
-        const foundUserWithEmail = await DB.users.findOne({ where: { email: req.body.email } });
+        const foundUserWithEmail = await db.User.findOne({ where: { email: req.body.email } });
         // console.log({ foundUserWithId })
 
         if (foundUserWithEmail) {
@@ -78,7 +78,7 @@ const readPosts = async () => {
 const readUsers2 = async () => {
     console.log("start readUsers2")
     try {
-        const user = await db.users.findByPk(1)
+        const user = await db.User.findByPk(1)
         // console.log("users", JSON.stringify(users, null, 2))
         // console.log({ user })
 
