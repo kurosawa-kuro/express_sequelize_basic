@@ -14,7 +14,7 @@ async function startUser() {
     // searchUsers()
     // updateUser()
     // deleteUser()
-    truncateUsers()
+    // truncateUsers()
 }
 
 const createUser = async () => {

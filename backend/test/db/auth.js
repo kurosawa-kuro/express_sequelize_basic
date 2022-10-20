@@ -10,7 +10,7 @@ const signin_user = {
     password: "signinsignin"
 }
 
-async function start_auth() {
+async function startAuth() {
     console.log("start auth")
 
     signup()
@@ -22,35 +22,40 @@ async function start_auth() {
 
 async function signup() {
     console.log("start signup")
-    const inputData = {
-        name: faker.name.fullName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(20),
-        avator: faker.image.avatar(),
-        role: "normal",
+
+    // const body = req.body
+    const req = {
+        body: {
+            name: faker.name.fullName(),
+            email: faker.internet.email(),
+            password: faker.internet.password(20),
+            admin: false,
+        }
     }
 
-    inputData.name = signin_user.name
-    inputData.email = signin_user.email
-    inputData.password = signin_user.password
+    req.body.name = signin_user.name
+    req.body.email = signin_user.email
+    req.body.password = signin_user.password
 
-    if (!inputData.name || !inputData.email || !inputData.password) {
+    if (!req.body.name || !req.body.email || !req.body.password) {
+        // res.statusCode = 404
         throw new Error('Please add all fields')
     }
 
     // Check if user exists
-    const userExists = await User.findOne({ where: { email: inputData.email } });
+    const userExists = await User.findOne({ where: { email: req.body.email } });
     // consoleLogJson(userExists)
 
     if (userExists) {
+        // res.statusCode = 404
         throw new Error('User already exists')
     }
 
     // Hash password
-    inputData.password = await User.generateHash(inputData.password)
+    req.body.password = await User.generateHash(req.body.password)
 
     try {
-        const user = await User.create(inputData)
+        const user = await User.create(req.body)
 
         const resData = {
             name: user.dataValues.name,
@@ -73,10 +78,10 @@ async function signin() {
     // consoleLogJson(inputData)
 
     // Check for user email
-    const userWithEmail = await User.findOne({ where: { email: inputData.email } })
+    const userWithEmail = await User.findOne({ where: { email: req.body.email } })
     // consoleLogJson(userWithEmail)
 
-    if (userWithEmail && (await bcrypt.compare(inputData.password, userWithEmail.password))) {
+    if (userWithEmail && (await bcrypt.compare(req.body.password, userWithEmail.password))) {
         const resData = {
             name: userWithEmail.name,
             email: userWithEmail.email,
@@ -103,6 +108,6 @@ async function delete_signin_user() {
 
 }
 module.exports = {
-    start_auth
+    startAuth
 }
 
