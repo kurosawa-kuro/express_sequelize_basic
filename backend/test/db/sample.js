@@ -17,8 +17,8 @@ async function startSample() {
     // truncateUsers()
 }
 
-const createUser = async () => {
-    console.log("start createUser")
+const createSample = async () => {
+    console.log("start createSample")
     try {
         // const body = req.body
         const req = {
@@ -51,7 +51,6 @@ const createUser = async () => {
         console.log({ isSuccess: false, error })
     }
 }
-
 
 const readSamples = async () => {
     console.log("start readSamples")

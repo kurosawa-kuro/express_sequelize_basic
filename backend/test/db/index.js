@@ -4,9 +4,9 @@ const { startSample } = require("./sample.js")
 
 async function start() {
     console.log("start database index")
-    // startUser()
+    startUser()
     // startPost()
-    startSample()
+    // startSample()
     // start_posts()
     // start_auth()
 }

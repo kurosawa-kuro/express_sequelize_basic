@@ -1,4 +1,8 @@
 'use strict';
+
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 const {
   Model
 } = require('sequelize');
@@ -24,6 +28,22 @@ module.exports = (sequelize, DataTypes) => {
         through: 'users_groups',
         as: 'groups'
       });
+    }
+
+    static async generateHash(password) {
+      const salt = await bcrypt.genSalt(10)
+      return await bcrypt.hash(password, salt)
+    }
+
+    static async generateToken(id) {
+      return jwt.sign({ id }, "process.env.JWT_SECRET", {
+        expiresIn: '30d',
+      })
+    }
+
+    async aaa(id) {
+      const aaa = id + " aaa " + this.name
+      return aaa
     }
   }
   User.init({

@@ -7,8 +7,8 @@ async function startUser() {
     // console.log({ User })
 
     // createUser()
-    readUsers()
-    // readUsers2()
+    // readUsers()
+    readUsers2()
     // readUsers3()
     // readUser()
     // searchUsers()
@@ -52,7 +52,6 @@ const createUser = async () => {
     }
 }
 
-
 const readUsers = async () => {
     console.log("start read_users")
     try {
@@ -76,7 +75,7 @@ const readUsers = async () => {
         console.log("users", JSON.stringify(users, null, 2))
 
         const data = users
-        const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+        const msg = data.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -88,12 +87,12 @@ const readUsers = async () => {
 const readUsers2 = async () => {
     console.log("start readUsers2")
     try {
-        const user = await db.users.findByPk(1)
+        const user = await db.User.findByPk(1)
         // console.log("users", JSON.stringify(users, null, 2))
         // console.log({ user })
 
-        const aaaa = user.aaaa()
-        console.log({ aaaa })
+        const aaa = user.aaa(123)
+        console.log({ aaa })
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         // console.log({ isSuccess: true, msg, data })
