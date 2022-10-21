@@ -2,107 +2,175 @@ const bcrypt = require('bcryptjs')
 const { User } = require("../../db/models/index")
 const { faker } = require('@faker-js/faker');
 
-const { consoleLogJson } = require("../../library/index")
-
-const signin_user = {
+const signinUser = {
     name: "signin",
     email: "signin@signin.com",
-    password: "signinsignin"
+    password: "signinsignin",
+    avator: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1002.jpg",
+    admin: false
 }
 
-async function start_auth() {
+async function startAuth() {
     console.log("start auth")
 
-    signup()
-    // signin()
-    // delete_signin_user()
+    // signup()
+    signin()
+    // delete_signinUser()
 
     // profile()
 }
 
 async function signup() {
-    console.log("start signup")
-    const inputData = {
-        name: faker.name.fullName(),
-        email: faker.internet.email(),
-        password: faker.internet.password(20),
-        avator: faker.image.avatar(),
-        role: "normal",
-    }
-
-    inputData.name = signin_user.name
-    inputData.email = signin_user.email
-    inputData.password = signin_user.password
-
-    if (!inputData.name || !inputData.email || !inputData.password) {
-        throw new Error('Please add all fields')
-    }
-
-    // Check if user exists
-    const userExists = await User.findOne({ where: { email: inputData.email } });
-    // consoleLogJson(userExists)
-
-    if (userExists) {
-        throw new Error('User already exists')
-    }
-
-    // Hash password
-    inputData.password = await User.generateHash(inputData.password)
-
     try {
-        const user = await User.create(inputData)
+        console.log("start signup")
+
+        // const body = req.body
+        const req = {
+            body: {
+                name: faker.name.fullName(),
+                email: faker.internet.email(),
+                password: faker.internet.password(20),
+                admin: false,
+            }
+        }
+
+        req.body.name = signinUser.name
+        req.body.email = signinUser.email
+        req.body.password = signinUser.password
+
+        if (!req.body.name || !req.body.email || !req.body.password) {
+            // res.statusCode = 404
+            throw new Error('Please add all fields')
+        }
+
+        // Check if user exists
+        const userExists = await User.findOne({ where: { email: req.body.email } });
+        // consoleLogJson(userExists)
+
+        if (userExists) {
+            // res.statusCode = 404
+            throw new Error('User already exists')
+        }
+
+        // Hash password
+        req.body.password = await User.generateHash(req.body.password)
+
+        const user = await User.create(req.body)
 
         const resData = {
             name: user.dataValues.name,
             email: user.dataValues.email,
             token: await User.generateToken(user.id),
         }
-        consoleLogJson(resData)
+
+        const msg = "Successfully signup User"
+        const data = resData
+
+        // return res.status(201).json({ isSuccess: true, msg, data })
+        console.log({ isSuccess: true, msg, data })
     } catch (error) {
-        console.log(error)
+        console.log({ isSuccess: false, error })
     }
 }
 
-
 async function signin() {
-    console.log("start signin")
-    const inputData = {
-        email: signin_user.email,
-        password: signin_user.password
-    }
-    // consoleLogJson(inputData)
-
-    // Check for user email
-    const userWithEmail = await User.findOne({ where: { email: inputData.email } })
-    // consoleLogJson(userWithEmail)
-
-    if (userWithEmail && (await bcrypt.compare(inputData.password, userWithEmail.password))) {
-        const resData = {
-            name: userWithEmail.name,
-            email: userWithEmail.email,
-            token: await User.generateToken(userWithEmail.id),
+    try {
+        console.log("start signin")
+        // const body = req.body
+        const req = {
+            body: {
+                email: signinUser.email,
+                password: signinUser.password
+            }
         }
-        consoleLogJson(resData)
-    } else {
-        throw new Error('Invalid credentials')
+
+        // Check for user email
+        const userWithEmail = await User.findOne({ where: { email: req.body.email } })
+        // consoleLogJson(userWithEmail)
+
+        if (userWithEmail && (await bcrypt.compare(req.body.password, userWithEmail.password))) {
+            const resData = {
+                name: userWithEmail.name,
+                email: userWithEmail.email,
+                token: await User.generateToken(userWithEmail.id),
+            }
+
+            const msg = "Successfully signin User"
+            const data = resData
+
+            // return res.status(201).json({ isSuccess: true, msg, data })
+            console.log({ isSuccess: true, msg, data })
+        } else {
+            // res.statusCode = 404
+            throw new Error('Invalid credentials')
+        }
+    } catch (error) {
+        console.log({ isSuccess: false, error })
     }
 }
 
 async function profile() {
-    const users = await User.findAll({ include: 'posts' })
-
-    console.log("users", JSON.stringify(users, null, 2))
-}
-
-async function delete_signin_user() {
-    await User.destroy({
-        where: {
-            email: "signin@signin.com"
+    try {
+        // const body = req.body
+        const req = {
+            body: {
+                email: signinUser.email,
+                password: signinUser.password
+            }
         }
-    });
 
+        const userWithEmail = await User.findOne(
+            {
+                where: { email: req.body.email },
+                attributes: ['name', 'email']
+            })
+
+        const msg = "Successfully profile user"
+        const data = userWithEmail
+
+        // return res.status(201).json({ isSuccess: true, msg, data })
+        console.log({ isSuccess: true, msg, data })
+    } catch (error) {
+        console.log({ isSuccess: false, error })
+    }
 }
+
+async function delete_signinUser() {
+    console.log("start delete_signinUser")
+    try {
+        // const body = req.body
+        const req = {
+            body: {
+                email: signinUser.email,
+                password: signinUser.password
+            }
+        }
+
+        // Check for user email
+        const userWithEmail = await User.findOne({ where: { email: req.body.email } })
+
+        if (!userWithEmail) {
+            // res.statusCode = 404
+            throw new Error('user not exists');
+        }
+
+        await User.destroy({
+            where: {
+                email: "signin@signin.com"
+            }
+        });
+
+        const msg = "Successfully delete_signinUser"
+        const data = undefined
+
+        // return res.status(201).json({ isSuccess: true, msg, data })
+        console.log({ isSuccess: true, msg, data })
+    } catch (error) {
+        console.log({ isSuccess: false, error })
+    }
+}
+
 module.exports = {
-    start_auth
+    startAuth
 }
 

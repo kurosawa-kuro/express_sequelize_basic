@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    async aaa(id) {
+      const aaa = id + " aaa " + this.name
+      return aaa
+    }
   }
   Sample.init({
     name: DataTypes.STRING,

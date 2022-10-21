@@ -1,12 +1,13 @@
 // const { Op } = require("sequelize");
 const db = require("../../db/models/index")
+// const { User } = require("../../db/models/index")
 
-async function startPost() {
-    console.log("start_post")
+async function startUser() {
+    console.log("start_user")
     // console.log({ User })
 
     // createUser()
-    readPosts()
+    readUsers()
     // readUsers2()
     // readUsers3()
     // readUser()
@@ -30,7 +31,7 @@ const createUser = async () => {
         }
 
         // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
-        const foundUserWithEmail = await DB.users.findOne({ where: { email: req.body.email } });
+        const foundUserWithEmail = await db.User.findOne({ where: { email: req.body.email } });
         // console.log({ foundUserWithId })
 
         if (foundUserWithEmail) {
@@ -52,21 +53,30 @@ const createUser = async () => {
 }
 
 
-const readPosts = async () => {
-    console.log("start readPosts")
+const readUsers = async () => {
+    console.log("start read_users")
     try {
-        const posts = await db.Post.findAll({
+        const users = await db.User.findAll({
             include: [
                 {
-                    model: db.Tag,
-                    as: 'tags',
+                    model: db.UserDetail,
+                    as: 'userDetail',
+                    attributes: ['phone', 'adress']
+                }, {
+                    model: db.Post,
+                    as: 'posts',
+                    attributes: ['name', 'content', 'image']
+                }, {
+                    model: db.Group,
+                    as: 'groups',
+                    attributes: ['name']
                 },
             ],
         })
-        console.log("posts", JSON.stringify(posts, null, 2))
+        console.log("users", JSON.stringify(users, null, 2))
 
-        const data = posts
-        const msg = posts.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+        const data = users
+        const msg = users.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -78,7 +88,7 @@ const readPosts = async () => {
 const readUsers2 = async () => {
     console.log("start readUsers2")
     try {
-        const user = await db.users.findByPk(1)
+        const user = await db.User.findByPk(1)
         // console.log("users", JSON.stringify(users, null, 2))
         // console.log({ user })
 
@@ -242,6 +252,6 @@ const truncateUsers = async () => {
 }
 
 module.exports = {
-    startPost
+    startUser
 }
 

@@ -1,24 +1,24 @@
-// const { Op } = require("sequelize");
-// const db = require("../../db/models/index")
-const { Sample } = require("../../db/models/index")
+const { Op } = require("sequelize");
+const db = require("../../db/models/index")
+// const { User } = require("../../db/models/index")
 
-async function startSample() {
-    console.log("startSample")
+async function startUser() {
+    console.log("start_user")
     // console.log({ User })
 
     // createUser()
-    // readSamples()
+    // readUsers()
     // readUsers2()
     // readUsers3()
-    readSample()
+    // readUser()
     // searchUsers()
     // updateUser()
     // deleteUser()
     // truncateUsers()
 }
 
-const createSample = async () => {
-    console.log("start createSample")
+const createUser = async () => {
+    console.log("start createUser")
     try {
         // const body = req.body
         const req = {
@@ -26,7 +26,7 @@ const createSample = async () => {
                 name: "abc",
                 email: "1bc@abc.com",
                 password: "unhashed_password",
-                role: "normal",
+                admin: false,
             }
         }
 
@@ -39,7 +39,7 @@ const createSample = async () => {
             throw new Error('user already exists');
         }
 
-        const user = await User.create(req.body)
+        const user = await db.User.create(req.body)
         // console.log("user", JSON.stringify(user, null, 2))
 
         const msg = "Successfully created User"
@@ -52,16 +52,29 @@ const createSample = async () => {
     }
 }
 
-const readSample = async () => {
-    console.log("start readSample")
+const readUsers = async () => {
+    console.log("start read_users")
     try {
-        const sample = await Sample.findByPk(1)
-        console.log("sample", JSON.stringify(sample, null, 2))
+        const users = await db.User.findAll({
+            include: [
+                {
+                    model: db.UserDetail,
+                    as: 'userDetail',
+                    attributes: ['phone', 'adress']
+                }, {
+                    model: db.Post,
+                    as: 'posts',
+                    attributes: ['name', 'content', 'image']
+                }, {
+                    model: db.Group,
+                    as: 'groups',
+                    attributes: ['name']
+                },
+            ],
+        })
+        console.log("users", JSON.stringify(users, null, 2))
 
-        const aaa = sample.aaa(123)
-        console.log({ aaa })
-
-        const data = sample
+        const data = users
         const msg = data.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
@@ -78,8 +91,8 @@ const readUsers2 = async () => {
         // console.log("users", JSON.stringify(users, null, 2))
         // console.log({ user })
 
-        const aaaa = user.aaaa()
-        console.log({ aaaa })
+        const aaa = user.aaa(123)
+        console.log({ aaa })
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         // console.log({ isSuccess: true, msg, data })
@@ -109,7 +122,7 @@ const readUser = async () => {
         // const id = req.params.id
         const id = 1
 
-        const user = await User.findOne({ where: { id }, include: 'posts' })
+        const user = await db.User.findOne({ where: { id }, include: 'posts' })
         // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
 
         const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
@@ -134,7 +147,7 @@ const updateUser = async () => {
             role: "admin",
         }
 
-        const foundUserWithId = await User.findByPk(id);
+        const foundUserWithId = await db.User.findByPk(id);
         // console.log({ foundUserWithId })
 
         if (!foundUserWithId) {
@@ -142,7 +155,7 @@ const updateUser = async () => {
             throw new Error('user not found');
         }
 
-        await User.update(body, {
+        await db.User.update(body, {
             where: { id }
         });
 
@@ -165,7 +178,7 @@ const deleteUser = async () => {
         // const id = req.params.id
         const id = 1
 
-        const foundUserWithId = await User.findByPk(id);
+        const foundUserWithId = await db.User.findByPk(id);
         // console.log({ foundUserWithId })
 
         if (!foundUserWithId) {
@@ -173,7 +186,7 @@ const deleteUser = async () => {
             throw new Error('user not found');
         }
 
-        await User.destroy({
+        await db.User.destroy({
             where: { id }
         });
         const msg = "Successfully deleted User"
@@ -192,7 +205,7 @@ const searchUsers = async () => {
         // const { keyword } = req.query
         const keyword = "Doe"
 
-        const users = await User.findAll({
+        const users = await db.User.findAll({
             where: {
                 [Op.or]: [
                     {
@@ -210,7 +223,7 @@ const searchUsers = async () => {
         })
 
         const data = users
-        const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
+        const msg = data.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -223,7 +236,7 @@ const truncateUsers = async () => {
     console.log("start truncateUsers")
 
     try {
-        await User.destroy({
+        await db.User.destroy({
             truncate: true
         });
 
@@ -238,6 +251,6 @@ const truncateUsers = async () => {
 }
 
 module.exports = {
-    startSample
+    startUser
 }
 

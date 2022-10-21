@@ -1,5 +1,7 @@
-const { startUser } = require("./userDatabase.js")
-const { startPost } = require("./postDatabase.js")
+const { startUser } = require("./user.js")
+const { startAuth } = require("./auth.js")
+const { startPost } = require("./post.js")
+const { startUsersGroups } = require("./usersGroups")
 const { startSample } = require("./sample.js")
 
 async function start() {
@@ -7,8 +9,8 @@ async function start() {
     // startUser()
     // startPost()
     startSample()
-    // start_posts()
-    // start_auth()
+    // startUsersGroups()
+    // startAuth()
 }
 
 start()
