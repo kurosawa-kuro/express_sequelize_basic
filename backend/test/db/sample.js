@@ -4,17 +4,16 @@ const { Sample } = require("../../db/models/index")
 
 async function startSample() {
     console.log("startSample")
-    // console.log({ User })
+    // console.log({ Sample })
 
-    // createUser()
-    // readSamples()
-    // readUsers2()
-    // readUsers3()
-    readSample()
-    // searchUsers()
-    // updateUser()
-    // deleteUser()
-    // truncateUsers()
+    // createSample()
+    readSamples()
+    // readSample2()
+    // readSample()
+    // searchSample()
+    // updateSample()
+    // deleteSample()
+    // truncateSamples()
 }
 
 const createSample = async () => {
@@ -24,28 +23,34 @@ const createSample = async () => {
         const req = {
             body: {
                 name: "abc",
-                email: "1bc@abc.com",
-                password: "unhashed_password",
-                role: "normal",
+                created_at: new Date(),
+                updated_at: new Date(),
             }
         }
 
-        // const foundUserWithEmail = await User.findOne({ where: { email: req.body.email } });
-        const foundUserWithEmail = await db.User.findOne({ where: { email: req.body.email } });
-        // console.log({ foundUserWithId })
+        const sample = await Sample.create(req.body)
+        // console.log("sample", JSON.stringify(sample, null, 2))
 
-        if (foundUserWithEmail) {
-            // res.statusCode = 404
-            throw new Error('user already exists');
-        }
-
-        const user = await User.create(req.body)
-        // console.log("user", JSON.stringify(user, null, 2))
-
-        const msg = "Successfully created User"
-        const data = user
+        const data = sample
+        const msg = "Successfully created Sample"
 
         // return res.status(201).json({ isSuccess: true, msg, data })
+        console.log({ isSuccess: true, msg, data })
+    } catch (error) {
+        console.log({ isSuccess: false, error })
+    }
+}
+
+const readSamples = async () => {
+    console.log("start readSample")
+    try {
+        const samples = await Sample.findAll()
+        console.log("sample", JSON.stringify(samples, null, 2))
+
+        const data = samples
+        const msg = data.length !== 0 ? "Successfully read Samples" : "Successfully read Samples but empty"
+
+        // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
     } catch (error) {
         console.log({ isSuccess: false, error })
@@ -58,11 +63,8 @@ const readSample = async () => {
         const sample = await Sample.findByPk(1)
         console.log("sample", JSON.stringify(sample, null, 2))
 
-        const aaa = sample.aaa(123)
-        console.log({ aaa })
-
         const data = sample
-        const msg = data.length !== 0 ? "Successfully read Users" : "Successfully read Users but empty"
+        const msg = data.length !== 0 ? "Successfully read Samples" : "Successfully read Samples but empty"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -71,14 +73,14 @@ const readSample = async () => {
     }
 }
 
-const readUsers2 = async () => {
-    console.log("start readUsers2")
+const readSample2 = async () => {
+    console.log("start readSample2")
     try {
-        const user = await db.User.findByPk(1)
-        // console.log("users", JSON.stringify(users, null, 2))
-        // console.log({ user })
+        const sample = await db.Sample.findByPk(1)
+        // console.log("sample", JSON.stringify(sample, null, 2))
+        // console.log({ sample })
 
-        const aaaa = user.aaaa()
+        const aaaa = sample.aaaa()
         console.log({ aaaa })
 
         // return res.status(200).json({ isSuccess: true, msg, data })
@@ -88,12 +90,12 @@ const readUsers2 = async () => {
     }
 }
 
-const readUsers3 = async () => {
-    console.log("start readUsers3")
+const readSample3 = async () => {
+    console.log("start readSample3")
     try {
-        const [results, metadata] = await sequelize.query("SELECT * FROM users");
-        // console.log("users metadata", JSON.stringify(metadata, null, 2))
-        const msg = "Successfully read User"
+        const [results, metadata] = await sequelize.query("SELECT * FROM samples");
+        // console.log("samples metadata", JSON.stringify(metadata, null, 2))
+        const msg = "Successfully read Samples"
         const data = metadata
 
         // return res.status(200).json({ isSuccess: true, msg, data })
@@ -103,27 +105,8 @@ const readUsers3 = async () => {
     }
 }
 
-const readUser = async () => {
-    console.log("start readUser")
-    try {
-        // const id = req.params.id
-        const id = 1
-
-        const user = await User.findOne({ where: { id }, include: 'posts' })
-        // console.log("JSON.stringify(user, null, 2)", JSON.stringify(user, null, 2))
-
-        const msg = user ? "Successfully found Users" : "Successfully found Users but empty"
-        const data = user
-
-        // return res.status(200).json({ isSuccess: true, msg, data })
-        console.log({ isSuccess: true, msg, data })
-    } catch (error) {
-        console.log({ isSuccess: false, error })
-    }
-}
-
-const updateUser = async () => {
-    console.log("start updateUser")
+const updateSample = async () => {
+    console.log("start updateSample")
     try {
         // const id = req.params.id
         const id = 2
@@ -131,26 +114,25 @@ const updateUser = async () => {
         // const body = req.body
         const body = {
             name: "updated name",
-            role: "admin",
         }
 
-        const foundUserWithId = await User.findByPk(id);
-        // console.log({ foundUserWithId })
+        const foundSampleWithId = await Sample.findByPk(id);
+        // console.log({ foundSampleWithId })
 
-        if (!foundUserWithId) {
+        if (!foundSampleWithId) {
             // res.statusCode = 404
-            throw new Error('user not found');
+            throw new Error('sample not found');
         }
 
-        await User.update(body, {
+        await Sample.update(body, {
             where: { id }
         });
 
-        foundUserWithId.name = body.name
-        foundUserWithId.role = body.role
+        foundSampleWithId.name = body.name
+        foundSampleWithId.role = body.role
 
-        const msg = "Successfully updated User"
-        const data = foundUserWithId
+        const msg = "Successfully updated Sample"
+        const data = foundSampleWithId
 
         // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -159,25 +141,25 @@ const updateUser = async () => {
     }
 }
 
-const deleteUser = async () => {
-    console.log("start deleteUser")
+const deleteSample = async () => {
+    console.log("start deleteSample")
     try {
         // const id = req.params.id
         const id = 1
 
-        const foundUserWithId = await User.findByPk(id);
-        // console.log({ foundUserWithId })
+        const foundSampleWithId = await Sample.findByPk(id);
+        // console.log({ foundSampleWithId })
 
-        if (!foundUserWithId) {
+        if (!foundSampleWithId) {
             // res.statusCode = 404
-            throw new Error('user not found');
+            throw new Error('Sample not found');
         }
 
-        await User.destroy({
+        await Sample.destroy({
             where: { id }
         });
-        const msg = "Successfully deleted User"
-        const data = foundUserWithId
+        const msg = "Successfully deleted Sample"
+        const data = foundSampleWithId
 
         // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -186,22 +168,17 @@ const deleteUser = async () => {
     }
 }
 
-const searchUsers = async () => {
-    console.log("start searchUsers")
+const searchSamples = async () => {
+    console.log("start searchSamples")
     try {
         // const { keyword } = req.query
         const keyword = "Doe"
 
-        const users = await User.findAll({
+        const samples = await Sample.findAll({
             where: {
                 [Op.or]: [
                     {
                         name: {
-                            [Op.like]: '%' + keyword + '%'
-                        }
-                    },
-                    {
-                        email: {
                             [Op.like]: '%' + keyword + '%'
                         }
                     }
@@ -209,8 +186,8 @@ const searchUsers = async () => {
             }
         })
 
-        const data = users
-        const msg = users.length === 0 ? "Successfully searched Users but empty" : "Successfully searched Users"
+        const data = samples
+        const msg = samples.length === 0 ? "Successfully searched Samples but empty" : "Successfully searched Samples"
 
         // return res.status(200).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
@@ -219,16 +196,16 @@ const searchUsers = async () => {
     }
 }
 
-const truncateUsers = async () => {
-    console.log("start truncateUsers")
+const truncateSamples = async () => {
+    console.log("start truncateSamples")
 
     try {
-        await User.destroy({
+        await Sample.destroy({
             truncate: true
         });
 
         const data = []
-        const msg = "Successfully truncate Users"
+        const msg = "Successfully truncate Samples"
 
         // return res.status(201).json({ isSuccess: true, msg, data })
         console.log({ isSuccess: true, msg, data })
