@@ -12,18 +12,26 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      image: {
+        type: Sequelize.STRING,
+        defaultValue: "https://loremflickr.com/640/480/fashion"
+      },
+      boolean: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      radioGroup: {
+        type: Sequelize.STRING,
+        defaultValue: "1"
+      },
+      checkbox: {
+        type: Sequelize.STRING,
+        defaultValue: "1,2"
+      },
       created_at: {
         type: Sequelize.DATE
       },
       updated_at: {
-        type: Sequelize.DATE
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE
       }
     });
